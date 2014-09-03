@@ -3,7 +3,9 @@
 # extract just African countries into subunits.json
 ogr2ogr \
     -f GeoJSON \
-    -where "continent IN ('Africa')" \
+    -where "ISO_A2 IN ('DZ', 'EG', 'EH', 'LY', 'MA', 'SD', 'SS', 'TN')" \
+    -where "ADM0_A3 IN ('ZAF', 'MWI', 'DZA', 'EGY', 'TGO', 'SEN')" \
+#	\-where "continent IN ('Africa')" \
     subunits.json \
     ne_110m_admin_0_countries.shp
 

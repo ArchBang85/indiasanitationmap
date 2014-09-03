@@ -1,0 +1,1 @@
+topojson --id-property=HASC_2 -p name=NAME_2 -o india.json subunits.json

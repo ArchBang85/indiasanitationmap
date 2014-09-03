@@ -188,7 +188,10 @@ def main(argv):
     else:
         # compressed javascript
         print json.dumps(data, separators=(',', ':'))
-    return 0
+    with open("output.txt", 'w') as outfile:
+		json.dump(data, outfile)
+		
+	#return 0
 
 if __name__ == '__main__':
     sys.exit(main(sys.argv))

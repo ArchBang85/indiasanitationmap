@@ -113,7 +113,7 @@ function setSelectionLeadingText(selector, translationKey, capitalise) {
  */
 function updateStaticText() {
 	// map info section
-	setSelectionText("#fallback-title", "Africa Water Map");
+	setSelectionText("#fallback-title", "India Map");
 	setSelectionHtml("#fallback-text", "browser fallback");
 	setSelectionLeadingText("#map-info-title", "map info title");
 	setSelectionLeadingText(".map-info > h1 > span.big", selectedSource);
@@ -124,7 +124,7 @@ function updateStaticText() {
 
 	// sharing section
 	setSelectionLeadingText(".social-share > h2", "share");
-	setSelectionTitle("#twitter-search-link", "follow africa water map");
+	setSelectionTitle("#twitter-search-link", "follow India map");
 	setSelectionTitle(".ss-share-link.ico-facebook", "share on facebook");
 	setSelectionTitle(".ss-share-link.ico-twitter", "share on twitter");
 	setSelectionTitle(".ss-share-link.ico-google", "share on google");
@@ -133,7 +133,7 @@ function updateStaticText() {
 	setSelectionLeadingText(".embed-example", "you can embed this map");
 
 	// targets section
-	setSelectionText(".targets-title", "Everyone, Everywhere by 2030");
+	setSelectionText(".targets-title", "");
 	setSelectionText(".currently > .targets-section-title", "currently");
 	setSelectionText(".for-target > .targets-section-title", "for targets");
 	setSelectionText(".for-target > .targets-detail", "extra people per year");
@@ -171,11 +171,11 @@ function updateSocialText() {
 	var otherText =
 		encodeURIComponent(getTranslation("other share text " + selectedSource));
 	var title =
-		encodeURIComponent(getTranslation("Africa Water Week"));
+		encodeURIComponent(getTranslation(""));
 
 	d3.select("#twitter-search-link")
 		.attr("href", "https://twitter.com/#" + hashTag)
-		.attr("title", getTranslation("follow africa water map"))
+		.attr("title", getTranslation("follow"))
 		.attr("target", "_top")
 		.text(" #" + hashTag);
 
@@ -1015,6 +1015,7 @@ function loadedDataCallback(error, africa, dataset, langData) {
 
 	updateStaticText();
 
+	// Does this need to be amended for Indian data?
 	var countries = topojson.feature(africa, africa.objects.subunits).features;
 	var borders = topojson.mesh(africa, africa.objects.subunits,
 		function(a, b) { return true; });
