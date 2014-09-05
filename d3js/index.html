@@ -20,11 +20,11 @@
 
 <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-KTB5LZ"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+<!-- <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-KTB5LZ');</script>
+})(window,document,'script','dataLayer','GTM-KTB5LZ');</script> -->
 
 <noscript>
 	<h1>Africa Water Map</h1>
@@ -159,17 +159,33 @@ wwMap.init({
 	maxYear: 2030,
 	initialSource: 'water',
 	initialCountry: 'Africa',
-	yearsOnGraph: [1990, 2000, 2010, 2020, 2030],
+	yearsOnGraph: [1990, 2011, 2015, 2022, 2030],
 	mapurl_topojson: 'data/india_states_map.json',
 	dataurl: 'data/waterdata.json',
 	waterColorRange: [
-		"#8c9494", "#8398a2", "#7c9baa", "#73a1b4",
-		"#6aa6bd", "#62abc7", "#5aafd0", "#52b4d9",
-		"#49bae4", "#3fc0f0"],
+		"#15b598", "#4db181",
+		"#86c26f", "#d3cc4f", "#f2c83d",
+		"#ebb01f", "#eb941f", "#eb7e1f", 
+		"#da670f", "#d45500", "#800000"
+		 ],
+		 
+	waterDomain: [1, 20, 40, 60, 80, 100, 250, 500, 750, 2000],
+	
+	waterExtColorDomain: [1, 20, 40, 60, 80, 100, 250, 500, 750, 2000],
+	
+	// waterColorRange: [
+		//"#8c9494", "#8398a2", "#7c9baa", "#73a1b4",
+		//"#6aa6bd", "#62abc7", "#5aafd0", "#52b4d9",
+		//"#49bae4", "#3fc0f0"], 
 	sanitationColorRange: [
 		"#d45500", "#da670f", "#eb7e1f", "#eb941f",
 		"#ebb01f", "#f2c83d", "#d3cc4f", "#86c26f",
 		"#4db181", "#15b598"],
+		
+	sanitationDomain:  [1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 101],
+	
+	sanitationExtColorDomain:  [1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 101],
+		
 	noDataColor: "#eee",
 	lineGraphAspectRatio: 0.6,
 	lineGraphMargin: 5,

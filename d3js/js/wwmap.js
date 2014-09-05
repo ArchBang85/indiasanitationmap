@@ -55,7 +55,11 @@ function formatPercent(number) {
 	if (number >= 100) {
 		return Math.round(number).toString();
 	} else {
-		return number.toFixed(1);
+		// Handles null values
+		if(typeof number === 'undefined') {
+			return number.toFixed(1); 
+		}
+		else return 0
 	}
 }
 
@@ -497,7 +501,12 @@ function hoverCountry(d) {
 	var countryName = getCountryName(d.id);
 	// set the width according to the length of the country name, but don't
 	// get too small
-	var ttWidth = Math.max(minWidth, countryName.length*0.7);
+	if(countryName === 'undefined'){
+		var ttWidth = 1;
+	} else {
+		var ttWidth = Math.max(minWidth, countryName.length*0.7);
+	}
+		
 	d3.select(".tooltip-year").text(selectedYear.toString());
 	d3.select(".tooltip-country").text(countryName);
 	d3.select(".tooltip-percent").text(coverage);
@@ -505,6 +514,7 @@ function hoverCountry(d) {
 		.duration(200)
 		.style("opacity", 0.9);
 	var box = d3.select("#map")[0][0].getBoundingClientRect();
+	console.log('hovering over');
 	tooltipdiv
 		.style("width", ttWidth + "em")
 		.style("left", (d3.event.pageX - box.left + 10) + "px")
@@ -529,8 +539,15 @@ function updateColorScale() {
 	var colorRange;
 	if (selectedSource == "water") {
 		colorRange = config.waterColorRange;
-	} else {
+		// Update domains for absolute values
+		// Is there a way for these to scale dynamically based on the value range in the data?
+		colorDomain = config.waterDomain; 
+		extColorDomain = config.waterExtColorDomain; 
+	} else if (selectedSource == "sanitation") {
 		colorRange = config.sanitationColorRange;
+		colorDomain = config.sanitationDomain;
+		extColorDomain = config.sanitationExtColorDomain;
+		
 	}
 	colorScale = d3.scale.threshold()
 		.domain(colorDomain)
@@ -1009,6 +1026,7 @@ function createSlider() {
 }
 
 function loadedDataCallback(error, africa, dataset, langData) {
+	console.log('loading Data callback');
 	allData = dataset;
 	mapData = africa;
 	translations = langData;
@@ -1079,18 +1097,22 @@ function init(mapconfig) {
 	var mapRatio = 1.1;
 	var height = width * mapRatio;
 
-	colorDomain = [10, 20, 30, 40, 50, 60, 70, 80, 90, 101];
-	extColorDomain = [1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
+	// Set these depending the indicator, i.e. do we have a percentage indicator or some absolute values
+
+	colorDomain = [1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 101];
+	extColorDomain = [1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 101]; 
 
 	var lang = "en";
+	// Overrides language settings
 	if (QueryString.hasOwnProperty("lang")) {
 		lang = QueryString.lang;
 	}
 	var lang_url = 'data/lang_' + lang + '.json';
 
+	// Adjust the translation of the projection to ensure that the clicking and hovering functionality remains
 	var projection = d3.geo.mercator()
 		.scale(width/1.25)
-		.translate([width/4, height/2+10]);
+		.translate([-width +80, height/2+10]);
 	path = d3.geo.path().projection(projection);
 
 	d3.select("#select-water-source")

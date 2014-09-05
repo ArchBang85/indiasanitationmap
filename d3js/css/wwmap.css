@@ -145,7 +145,7 @@ h2 > a {
 }
 
 #map {
-    margin: 0 0 0em -135em;
+    margin: 0 0 0em 1em;
     overflow: visible;
     position: relative;
     z-index:1;
