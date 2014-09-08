@@ -4,7 +4,7 @@ var config, allData, mapData, translations,
 	selectedCountry, selectedYear, selectedSource,
 	path, mapsvg, colorScale, mapSlider, tooltipdiv,
 	graphsvg, lgX, lgY, usePercentages, numberUnit,
-	colorDomain, extColorDomain, activeDomain;
+	colorDomain, extColorDomain, activeDomain, level;
 	
 // from http://stackoverflow.com/a/979995/3189
 var QueryString = function () {
@@ -489,7 +489,11 @@ function countryClicked(d) {
 		selectedCountry = d.id;
 		updateSideBar();
 		addBorderToSelectedCountry();
+
 	}
+
+
+
 }
 
 function hoverCountry(d) {
@@ -1149,8 +1153,23 @@ function setDefaultSelections() {
 }
 
 function init(mapconfig) {
+
 	config = mapconfig;
 
+	var mapurl, dataurl;
+	level = "states"; // default
+	// override
+	if (QueryString.hasOwnProperty("level")) {
+		level = QueryString.level.replace("/","");
+	}
+
+	if(level == 'states') {
+		mapurl = config.mapurl_topojson_states;
+		dataurl = config.dataurl_states;
+	} else if (level == 'districts') {
+		mapurl = config.mapurl_topojson_districts;
+		dataurl = config.dataurl_districts;
+	}
 	// check for svg support
 	if (!document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#Image", "1.1")) {
 		replaceBodyWithFallbackImage();
@@ -1203,12 +1222,11 @@ function init(mapconfig) {
 	tooltipdiv = d3.select("#map > .tooltip");
 
 	queue()
-		.defer(d3.json, config.mapurl_topojson)
-		.defer(d3.json, config.dataurl)
+		.defer(d3.json, mapurl)
+		.defer(d3.json, dataurl)
 		.defer(d3.json, lang_url)
 		.await(loadedDataCallback);
 }
-
 function reset() {
 	setDefaultSelections();
 	selectedYear = config.minYear;
@@ -1221,7 +1239,13 @@ function reset() {
 	updateSideBar();
 	removeSelectedBorder();
 }
-
 return {init: init};
-
 })();
+
+		/* if (level == "districts"){
+			window.location.search -= '&level=states';
+			window.location.search += '&level=districts';
+		} else {
+			window.location.search -= '&level=districts';
+			window.location.search += '&level=states';
+		} */
