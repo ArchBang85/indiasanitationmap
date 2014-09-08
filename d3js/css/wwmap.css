@@ -136,8 +136,8 @@ h2 > a {
     font-size: 0.7em;
 }
 
-.big.water {color: #3FC0F0;}
-.big.sanitation{color: #43C4AD;}
+.big.indicator1 {color: #3FC0F0;}
+.big.indicator2 {color: #43C4AD;}
 
 .instructions {
     font-size: 0.95em;
@@ -170,8 +170,8 @@ h2 > a {
 	stroke-width: 3;
 	stroke-linejoin: round;
 }
-.selected-country-border.water { stroke: green; }
-.selected-country-border.sanitation { stroke: black; }
+.selected-country-border.indicator1 { stroke: green; }
+.selected-country-border.indicator2 { stroke: black; }
 
 
 
@@ -198,19 +198,19 @@ h2 > a {
 }
 
 
-#select-water-source.button.source:hover {
+#select-indicator1-source.button.source:hover {
     background-color: #3FC0F0;
 }
 
-#select-sanitation-source.button.source:hover {
+#select-indicator2-source.button.source:hover {
     background-color: #DD7733;
 }
 
-#select-water-source.button.current-source {
+#select-indicator1-source.button.current-source {
 	background-color:#3FC0F0;
 }
 
-#select-sanitation-source.button.current-source {
+#select-indicator2-source.button.current-source {
 	background-color:#43C4AD;
 }
 
@@ -516,7 +516,7 @@ aside.info {
     margin-top:1em;
 }
 
-.sanitation #country-info {
+.indicator2 #country-info {
 	border-top:5px solid #43C4AD;
 }
 
@@ -564,10 +564,10 @@ aside.info {
     position: absolute;
 }
 
-.water #country-info-access-text > .access-percentage { color:#6B6A67; }
-.sanitation #country-info-access-text > .access-percentage { color: #DD7733; }
-.water #country-info-access-text > .target-percentage {color: #3FC0F0;}
-.sanitation #country-info-access-text > .target-percentage {color: #43C4AD;}
+.indicator1 #country-info-access-text > .access-percentage { color:#6B6A67; }
+.indicator2 #country-info-access-text > .access-percentage { color: #DD7733; }
+.indicator1 #country-info-access-text > .target-percentage {color: #3FC0F0;}
+.indicator2 #country-info-access-text > .target-percentage {color: #43C4AD;}
 .percent-sign {
     font-size: 0.7em;
     left: 0.1em;
@@ -593,19 +593,19 @@ aside.info {
 	stroke-width: 3;
 }
 
-.sanitation #country-info line.history,
-.sanitation #country-info line.projection {
+.indicator2 #country-info line.history,
+.indicator2 #country-info line.projection {
 	stroke: #DD7733;
 	}
 
-.water #country-info line.history,
-.water #country-info line.projection {
+.indicator1 #country-info line.history,
+.indicator1 #country-info line.projection {
 	stroke: #555;
 	}
 	
-.sanitation #country-info line.universal { stroke: #43C4AD; }
+.indicator2 #country-info line.universal { stroke: #43C4AD; }
 
-.water #country-info line.universal { stroke: #3FC0F0; }
+.indicator1 #country-info line.universal { stroke: #3FC0F0; }
 #country-info line.year-line {
 	stroke: #aaa;
 	stroke-width: 1;
@@ -673,14 +673,14 @@ aside.info {
 }
 #targets-key-text { display: inline; }
 
-.water .currently { color:#666; }
-.sanitation .currently { color: #DD7733; }
+.indicator1 .currently { color:#666; }
+.indicator2 .currently { color: #DD7733; }
 
 .currently > .targets-detail {
 	padding-left:1em;
 }
-.water .for-target {color: #3FC0F0;}
-.sanitation .for-target {color: #43C4AD;}
+.indicator1 .for-target {color: #3FC0F0;}
+.indicator2 .for-target {color: #43C4AD;}
 .for-target > .targets-detail {
 	padding-right:1em;
 }
@@ -712,11 +712,11 @@ aside.info {
 }
 
 .person { fill: #aaa; }
-.water .person.current { fill: #666; }
-.sanitation .person.current { fill: #DD7733; }
+.indicator1 .person.current { fill: #666; }
+.indicator2 .person.current { fill: #DD7733; }
 .person.current .negative { fill: red; }
-.water .person.target { fill: #3FC0F0; }
-.sanitation .person.target { fill: #43C4AD; }
+.indicator1 .person.target { fill: #3FC0F0; }
+.indicator2 .person.target { fill: #43C4AD; }
 .person.key { fill: #aaa; }
 
 /*------Footer----------------

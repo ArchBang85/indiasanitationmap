@@ -31,15 +31,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 	<p>This map shows the progress on various sanitation indicators within Indian states and districts.</p>
 	<p>This page requires javascript to be enabled for the interactive part to work,
 	but below is an image of how it would appear if you did enable javascript.</p>
-	<img alt="India Water Map" src="images/fallback.png"></img>
+	<img alt="India Sanitation Map" src="images/fallback.png"></img>
 </noscript>
 
-<h1 id="fallback-title" class="fallback">India Water Map</h1>
+<h1 id="fallback-title" class="fallback">India Sanitation Map</h1>
 <p id="fallback-text" class="fallback">
 Your browser does not support the features needed to view this map properly - you could use any recent version of <a href="https://www.google.com/chrome/" target="_top">Chrome</a>, <a href="https://www.mozilla.org/firefox/" target="_top">Firefox</a>, Opera or Safari, or Internet Explorer version 9 or greater.
 </p>
 
-<div id="wrapperdiv" class="wrapper water">
+<div id="wrapperdiv" class="wrapper indicator1">
 	<div class="social-share">
 			<h2>share <a id="twitter-search-link" title="follow India Sanitation Map on twitter using #indiasanitationmap hashtag" href="https://twitter.com/#indiasanitationmap" target="_top"> #IndiaSanitationMap</a></h2>
 			<ul class="ss-share">
@@ -67,23 +67,25 @@ Your browser does not support the features needed to view this map properly - yo
 	<section class="mainmap">
 		<section class="map-info">
 				<h1 id="map-info-title">Progress of India's access to 
-					<span class="big water"> Sanitation<strong> 2001-2030</strong><br />&nbsp;</span>
+					<span class="big indicator1"> Sanitation<strong> 2001-2030</strong><br />&nbsp;</span>
 				</h1>
 				<p class="instructions">Drag the slider to change the year and click on an area to see more information.</p>
+
 				<div id="map-legend" class="legend">
 					<div id="map-legend-svg"></div>
 					<div id="map-legend-text">
-						<div class="zero-percent"><span class="legend-number">0</span> <span class="legend-percent">%</span></div>
-						<div class="hundred-percent"><span class="legend-number">100</span> <span class="legend-percent">%</span></div>
+						<div id="lowerBound" class="zero-percent"><span id="dabra" class="legend-number">0</span> <span class="legend-percent">%</span></div>
+						<div id="upperBound" class="hundred-percent"><span class="legend-number">100</span> <span class="legend-percent">%</span></div>
 						<div id="map-legend-label" class="legend-text"></div>
 					</div>
 				</div>
 				<div id="select-source">
-					<a href="#" id="select-water-source" class="button source current-source">Sanitation Density</a>
-					<a href="#" id="select-sanitation-source" class="button source">Sanitation Access</a>
-					<a href="#" id="select-sanitation-source" class="button source">Third Indicator</a>
-					<div id="reset-button">Reset timeline</div>
+					<a href="#" id="select-indicator1-source" class="button source current-source">Sanitation Density</a>
+					<a href="#" id="select-indicator2-source" class="button source">Sanitation Access</a>
+					<!--<a href="#" id="select-indicator3-source" class="button source">Third Indicator</a>-->
 				</div>
+				<div id="reset-button">Reset timeline</div>
+
 			</section>
 		<div id="map">
 			<div class="tooltip">
@@ -99,7 +101,7 @@ Your browser does not support the features needed to view this map properly - yo
 	<aside class="info">
 		<div id="country-info"></div>
 		<div id="country-targets">
-			<h2 class="targets-title">Everyone, Everywhere by 2030</h2>
+			<h2 class="targets-title">Sanitation Progress to 2030</h2>
 			<p class="targets-subtitle"></p>
 			<div class="targets-section currently">
 				<p class="targets-section-title">currently</p>
@@ -130,9 +132,7 @@ Your browser does not support the features needed to view this map properly - yo
 			<div class="map-description">
 				<h3>About this map</h3>
 				<p id="description-about">
-				This map shows which African countries are on track to reach everyone,
-				everywhere with access to water and sanitation by 2030, and what increase
-				in access is required in countries that are not on track.
+				This map shows where Indian states and districts are with respect to sanitation indicators.
 				</p>
 				<p id="description-more-info">
 				<a href="http://www.wateraid.org/get-involved/campaigns/africa-water-week#/about-our-interactive-map" target="_top">Find out more about how we calculated these figures.</a>
@@ -145,7 +145,7 @@ Your browser does not support the features needed to view this map properly - yo
 			<a href="http://www.washwatch.org/" target="_top"><img src="images/washwatch.png" width="74" height="44" alt="WashWatch"></a>
 		</div>
 		<div class="made-by">
-			<span id="map-by">map by</span> <a href="http://www.aptivate.org/" target="_top" class="Aptivate">Aptivate</a>
+			<span id="map-by">map by</span> <a href="mailto:petriautio@wateraid.org" target="_top" class="Aptivate">petriautio@wateraid.org</a> <span id="based on"> based on the platform by </a> <a href="http://www.aptivate.org/" target="_top" class="Aptivate">Aptivate</a> 
 		</div>
 	</footer>
 </div>
@@ -155,48 +155,44 @@ wwMap.init({
 	minYear: 2001,
 	thisYear: 2014,
 	maxYear: 2030,
-	initialSource: 'water',
+	initialSource: 'indicator1',
 	initialCountry: 'Africa',
 	yearsOnGraph: [2001, 2011, 2015, 2022, 2030],
 	mapurl_topojson: 'data/india_states_map.json',
-	dataurl: 'data/waterdata.json',
-	waterColorRange: [
+	dataurl: 'data/waterdata.json',	
+	
+	
+	// Generalising for n amount of indicators
+	indicator1ColorRange: [
 		"#15b598", "#4db181",
 		"#86c26f", "#d3cc4f", "#f2c83d",
 		"#ebb01f", "#eb941f", "#eb7e1f", 
 		"#da670f", "#d45500", "#800000"
 		 ],
-		 
-	waterDomain: [1, 20, 40, 60, 80, 100, 200, 300, 400, 500],
-	waterExtColorDomain: [1, 20, 40, 60, 80, 100, 200, 300, 400, 500],
-	
-	// waterColorRange: [
-		//"#8c9494", "#8398a2", "#7c9baa", "#73a1b4",
-		//"#6aa6bd", "#62abc7", "#5aafd0", "#52b4d9",
-		//"#49bae4", "#3fc0f0"], 
-		
-	sanitationColorRange: [
-		"#d45500", "#da670f", "#eb7e1f", "#eb941f",
+	indicator2ColorRange: [
+		"#d41500","#d45500", "#da670f", "#eb7e1f", "#eb941f",
 		"#ebb01f", "#f2c83d", "#d3cc4f", "#86c26f",
 		"#4db181", "#15b598"],
-		
-	sanitationDomain:  [1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 101],
-	sanitationExtColorDomain:  [1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 101],
+	// Reversed colours
+		//	["#800000", "#d45500", "#da670f",
+		//	"#eb7e1f","#eb941f","#ebb01f",  
+		//	"#f2c83d",  "#d3cc4f", 
+		//	"#86c26f", "#4db181","#15b598",
+		//	],
+	indicator1Domain: [0, 1, 40, 60, 80, 100, 150, 200, 250, 500],
+	indicator1ExtColorDomain: [0, 1, 40, 60, 80, 100, 150, 200, 250, 500],
+	// Note that the program determines whether to use percentages in colouring the map based on whether the unit contains % or "percent" in the text
+	indicator1Unit:" open defecation per square km",
 	
-	// Generalising for n amount of indicators
-	option1Domain:[],
-	option1ExtColorDomain:[],
-	option1Unit:"",
-	
-	option2Domain:[],
-	option2ExtColorDomain:[],
-	option2Unit:"",
+	indicator2Domain:[1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 101],
+	indicator2ExtColorDomain:[1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 101],
+	indicator2Unit:" %",
 
-	option3Domain:[],
-	option3ExtColorDomain:[],
-	option3Unit:"",
+	indicator3Domain:[],
+	indicator3ExtColorDomain:[],
+	indicator3Unit:"",
 	
-	waterUnit: " per square km",
+	waterUnit: " open defecation per square km",
 	sanitationUnit: " %",
 	
 	noDataColor: "#eee",

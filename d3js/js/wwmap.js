@@ -4,8 +4,8 @@ var config, allData, mapData, translations,
 	selectedCountry, selectedYear, selectedSource,
 	path, mapsvg, colorScale, mapSlider, tooltipdiv,
 	graphsvg, lgX, lgY, usePercentages, numberUnit,
-	colorDomain, extColorDomain;
-
+	colorDomain, extColorDomain, activeDomain;
+	
 // from http://stackoverflow.com/a/979995/3189
 var QueryString = function () {
 	// This function is anonymous, is executed immediately and
@@ -121,18 +121,18 @@ function setSelectionLeadingText(selector, translationKey, capitalise) {
  */
 function updateStaticText() {
 	// map info section
-	setSelectionText("#fallback-title", "Africa Water Map");
+	setSelectionText("#fallback-title", "India Sanitation Map");
 	setSelectionHtml("#fallback-text", "browser fallback");
 	setSelectionLeadingText("#map-info-title", "map info title");
 	setSelectionLeadingText(".map-info > h1 > span.big", selectedSource);
 	setSelectionHtml(".instructions", "instructions");
-	setSelectionText("#select-water-source", "water", true);
-	setSelectionText("#select-sanitation-source", "sanitation", true);
+	setSelectionText("#select-indicator1-source", "indicator1", true);
+	setSelectionText("#select-indicator2-source", "indicator2", true);
 	setSelectionText("#reset-button", "Reset");
 
 	// sharing section
 	setSelectionLeadingText(".social-share > h2", "share");
-	setSelectionTitle("#twitter-search-link", "follow africa water map");
+	setSelectionTitle("#twitter-search-link", "follow India sanitation map");
 	setSelectionTitle(".ss-share-link.ico-facebook", "share on facebook");
 	setSelectionTitle(".ss-share-link.ico-twitter", "share on twitter");
 	setSelectionTitle(".ss-share-link.ico-google", "share on google");
@@ -169,7 +169,7 @@ function updateSocialText() {
 	var pageUrl = (window.location != window.parent.location) ? document.referrer: document.location;
 	var encodedUrl = encodeURIComponent(pageUrl);
 	var hashTag;
-	if (selectedSource == "water") {
+	if (selectedSource == "indicator1") {
 		hashTag = config.twitterHashTagWater;
 	} else {
 		hashTag = config.twitterHashTagSanitation;
@@ -183,7 +183,7 @@ function updateSocialText() {
 
 	d3.select("#twitter-search-link")
 		.attr("href", "https://twitter.com/#" + hashTag)
-		.attr("title", getTranslation("follow africa water map"))
+		.attr("title", getTranslation("follow India sanitation map"))
 		.attr("target", "_top")
 		.text(" #" + hashTag);
 
@@ -517,8 +517,8 @@ function hoverCountry(d) {
 	} else {
 		var ttWidth = Math.max(minWidth, countryName.length*0.7);
 		ttWidth = Math.max(ttWidth, numberUnit.length*0.5);
-		var ttHeight = Math.max(minHeight, countryName.length * 0.4);
-		ttHeight = Math.max(ttHeight, numberUnit.length*0.5);
+		var ttHeight = Math.max(minHeight, countryName.length * 0.2);
+		ttHeight = Math.max(ttHeight, numberUnit.length*0.2);
 	}
 		
 	d3.select(".tooltip-year").text(selectedYear.toString());
@@ -552,18 +552,12 @@ function setCountryInfoYear() {
 
 function updateColorScale() {
 	var colorRange;
-	if (selectedSource == "water") {
-		colorRange = config.waterColorRange;
-		// Update domains for absolute values
-		// Is there a way for these to scale dynamically based on the value range in the data?
-		colorDomain = config.waterDomain; 
-		extColorDomain = config.waterExtColorDomain; 
-	} else if (selectedSource == "sanitation") {
-		colorRange = config.sanitationColorRange;
-		colorDomain = config.sanitationDomain;
-		extColorDomain = config.sanitationExtColorDomain;
+
+	colorRange = config[selectedSource + "ColorRange"];
+	// Update domains for absolute values
+	colorDomain = config[selectedSource + "Domain"]; 
+	extColorDomain = config[selectedSource + "ExtColorDomain"]; 
 		
-	}
 	colorScale = d3.scale.threshold()
 		.domain(colorDomain)
 		.range(colorRange);
@@ -595,13 +589,11 @@ function setYear(ext, value) {
 
 function setSource(source) {
 	selectedSource = source;
+	activeDomain = config[selectedSource + "Domain"];
+	activeExtColorDomain = config[selectedSource + "extColorDomain"];
 	sourceName = source + "Unit";
-	if(usePercentages) {
-		numberUnit = config.waterUnit;
-	} else {
-		numberUnit = config.sanitationUnit;
-	}
-	
+	// infer usage of percentages from unit
+	numberUnit = config[selectedSource + "Unit"];
 	resetCountryIfNoData();
 	// update everything that varies by source
 	d3.select("#wrapperdiv").attr("class", "wrapper " + selectedSource);
@@ -639,7 +631,7 @@ function valueForCountry(country_code, year) {
 			var numYears = year - config.minYear;
 			// Special case for when projected indicator value goes below zero		
 			// There should be no upper limit if it's not a percentage value
-			return Math.max(initial + (numYears * change), 1);
+			return Math.max(initial + (numYears * change), 0);
 		}
 		
 	}
@@ -726,11 +718,25 @@ function updateLegend() {
 		.attr("height", ls_h)
 		.style("fill", function(d, i) { return colorScale(d); })
 		.style("opacity", 0.8);
-
-	if (selectedSource == 'water') {
-		title = getTranslation("access to water");
+	
+	if(usePercentages)
+	{
+		d3.select("#lowerBound")
+			.text("0 %");
+		d3.select("#upperBound")
+			.text("100 %");
 	} else {
-		title = getTranslation("access to sanitation");
+		// Pick bounds from domain array
+		d3.select("#lowerBound")
+			.text(activeDomain[0].toString());
+		d3.select("#upperBound")
+			.text(activeDomain[activeDomain.length-1].toString() + "+");				
+	}
+	
+	if (selectedSource == 'indicator1') {
+		title = getTranslation("access to indicator1");
+	} else if (selectedSource == 'indicator2') {
+		title = getTranslation("access to indicator2");
 	}
 	d3.select("#map-legend-label")
 		.text(title);
@@ -741,17 +747,23 @@ function updateLegend() {
  */
 function updateMapInfo() {
 	var extraSpace; // whether to leave blank space under the title
-	if (selectedSource == "water") {
-		d3.select("#select-water-source").attr("class", "button source current-source");
-		d3.select("#select-sanitation-source").attr("class", "button source");
+	if (selectedSource == "indicator1") {
+		d3.select("#select-indicator1-source").attr("class", "button source current-source");
+		d3.select("#select-indicator2-source").attr("class", "button source");
 		extraSpace = "<br />&nbsp";
 		// Update whether to use percentages or not
-		usePercentages = true;
 	} else {
-		d3.select("#select-water-source").attr("class", "button source");
-		d3.select("#select-sanitation-source").attr("class", "button source current-source");
+		d3.select("#select-indicator1-source").attr("class", "button source");
+		d3.select("#select-indicator2-source").attr("class", "button source current-source");
 		extraSpace = "";
+	}
+	
+	// If the unit contains percentages, then use percentage logic
+	if(config[selectedSource + "Unit"].search("%") == -1 && config[selectedSource + "Unit"].search("percent") == -1)
+	{
 		usePercentages = false;
+	} else {
+		usePercentages = true;
 	}
 
 	d3.select(".map-info > h1 > span.big")
@@ -770,7 +782,7 @@ function setCountryInfoAccessText() {
 		var value = formatNumber(valueForCountry(selectedCountry, selectedYear));
 	}
 		
-	if (selectedSource == 'water') {
+	if (selectedSource == 'indicator1') {
 		accessTextPast = getTranslation('of people have access to water - past');
 		accessTextFuture = getTranslation('of people have access to water - future');
 		targetText = getTranslation('of people need access to water');
@@ -1029,12 +1041,12 @@ function updateTargetPanel() {
 		d3.select(".targets-key").style("visibility", "visible");
 
 		// finally update the text
-		if (selectedSource == "water") {
+		if (selectedSource == "indicator1") {
 			d3.select(".targets-subtitle")
 				.text(getTranslation("Total number of new people gaining access to water"));
 			d3.select(".currently > .targets-detail")
 				.text(getTranslation("more people per year will gain access to water"));
-		} else {
+		} else if (selectedSource == "indicator2"){
 			d3.select(".targets-subtitle")
 				.text(getTranslation("Total number of new people gaining access to sanitation"));
 			d3.select(".currently > .targets-detail")
@@ -1133,7 +1145,7 @@ function setDefaultSelections() {
 	selectedCountry = config.initialCountry;
 	selectedYear = config.thisYear;
 	usePercentages = config.usePercentages;
-	numberUnit = config.waterUnit;
+	numberUnit = config.indicator1Unit;
 }
 
 function init(mapconfig) {
@@ -1149,6 +1161,12 @@ function init(mapconfig) {
 	if (QueryString.hasOwnProperty("source")) {
 		selectedSource = QueryString.source;
 	}
+	
+	// Set these depending the indicator, i.e. do we have a percentage indicator or some absolute values
+	colorDomain = config.indicator1Domain;
+	extColorDomain = config.indicator1ExtColorDomain; 
+	activeDomain = colorDomain;
+	activeExtColorDomain = extColorDomain;
 
 	setDefaultSelections();
 
@@ -1156,9 +1174,6 @@ function init(mapconfig) {
 	var mapRatio = 1.1;
 	var height = width * mapRatio;
 
-	// Set these depending the indicator, i.e. do we have a percentage indicator or some absolute values
-	colorDomain = [1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 101];
-	extColorDomain = [1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 101]; 
 
 	// Default language
 	var lang = "en";
@@ -1174,10 +1189,10 @@ function init(mapconfig) {
 		.translate([-width + 80, height/2+10]);
 	path = d3.geo.path().projection(projection);
 
-	d3.select("#select-water-source")
-		.on("click", function(d) { setSource("water"); });
-	d3.select("#select-sanitation-source")
-		.on("click", function(d) { setSource("sanitation"); });
+	d3.select("#select-indicator1-source")
+		.on("click", function(d) { setSource("indicator1"); });
+	d3.select("#select-indicator2-source")
+		.on("click", function(d) { setSource("indicator2"); });
 	d3.select("#reset-button").on("click", reset);
 
 	mapsvg = d3.select("#map").insert("svg", "div.tooltip")
@@ -1197,7 +1212,6 @@ function init(mapconfig) {
 function reset() {
 	setDefaultSelections();
 	selectedYear = config.minYear;
-
 	// update everything that varies by source, year and country
 	createSlider();
 	setCountryInfoAccessText();
