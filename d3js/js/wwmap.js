@@ -3,7 +3,7 @@ var wwMap = (function() {
 var config, allData, mapData, translations,
 	selectedCountry, selectedYear, selectedSource,
 	path, mapsvg, colorScale, mapSlider, tooltipdiv,
-	graphsvg, lgX, lgY,
+	graphsvg, lgX, lgY, usePercentages, numberUnit,
 	colorDomain, extColorDomain;
 
 // from http://stackoverflow.com/a/979995/3189
@@ -63,6 +63,10 @@ function formatPercent(number) {
 	}
 }
 
+function formatNumber(number){
+	return Math.round(number).toString();
+}
+
 function capitaliseFirstLetter(string)
 {
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -117,7 +121,7 @@ function setSelectionLeadingText(selector, translationKey, capitalise) {
  */
 function updateStaticText() {
 	// map info section
-	setSelectionText("#fallback-title", "India Map");
+	setSelectionText("#fallback-title", "Africa Water Map");
 	setSelectionHtml("#fallback-text", "browser fallback");
 	setSelectionLeadingText("#map-info-title", "map info title");
 	setSelectionLeadingText(".map-info > h1 > span.big", selectedSource);
@@ -128,7 +132,7 @@ function updateStaticText() {
 
 	// sharing section
 	setSelectionLeadingText(".social-share > h2", "share");
-	setSelectionTitle("#twitter-search-link", "follow India map");
+	setSelectionTitle("#twitter-search-link", "follow africa water map");
 	setSelectionTitle(".ss-share-link.ico-facebook", "share on facebook");
 	setSelectionTitle(".ss-share-link.ico-twitter", "share on twitter");
 	setSelectionTitle(".ss-share-link.ico-google", "share on google");
@@ -137,7 +141,7 @@ function updateStaticText() {
 	setSelectionLeadingText(".embed-example", "you can embed this map");
 
 	// targets section
-	setSelectionText(".targets-title", "");
+	setSelectionText(".targets-title", "Everyone, Everywhere by 2030");
 	setSelectionText(".currently > .targets-section-title", "currently");
 	setSelectionText(".for-target > .targets-section-title", "for targets");
 	setSelectionText(".for-target > .targets-detail", "extra people per year");
@@ -175,11 +179,11 @@ function updateSocialText() {
 	var otherText =
 		encodeURIComponent(getTranslation("other share text " + selectedSource));
 	var title =
-		encodeURIComponent(getTranslation(""));
+		encodeURIComponent(getTranslation("map info title"));
 
 	d3.select("#twitter-search-link")
 		.attr("href", "https://twitter.com/#" + hashTag)
-		.attr("title", getTranslation("follow"))
+		.attr("title", getTranslation("follow africa water map"))
 		.attr("target", "_top")
 		.text(" #" + hashTag);
 
@@ -220,7 +224,6 @@ function updateSocialText() {
 
 function addLinksToShareButtons() {
 	updateSocialText();
-
 	d3.select(".ss-share-link.ico-embed")
 		.on("click", toggleEmbedCode);
 }
@@ -492,8 +495,14 @@ function countryClicked(d) {
 function hoverCountry(d) {
 	var coverage = valueForCountry(d.id, selectedYear);
 	var minWidth = 6;
+	var minHeight = 6;
 	if (coverage !== null) {
-		coverage = formatPercent(coverage) + "%";
+		if(usePercentages)
+		{
+			coverage = formatPercent(coverage) + numberUnit;
+		} else {
+			coverage = formatNumber(coverage) + numberUnit;
+		}	
 	} else {
 		coverage = "No Data";
 		minWidth = 8;
@@ -501,10 +510,15 @@ function hoverCountry(d) {
 	var countryName = getCountryName(d.id);
 	// set the width according to the length of the country name, but don't
 	// get too small
-	if(countryName === 'undefined'){
-		var ttWidth = 1;
+	console.log(countryName);
+	if(countryName === undefined){
+		var ttWidth = minWidth;
+		var ttHeight = minHeight;
 	} else {
 		var ttWidth = Math.max(minWidth, countryName.length*0.7);
+		ttWidth = Math.max(ttWidth, numberUnit.length*0.5);
+		var ttHeight = Math.max(minHeight, countryName.length * 0.4);
+		ttHeight = Math.max(ttHeight, numberUnit.length*0.5);
 	}
 		
 	d3.select(".tooltip-year").text(selectedYear.toString());
@@ -517,6 +531,7 @@ function hoverCountry(d) {
 	console.log('hovering over');
 	tooltipdiv
 		.style("width", ttWidth + "em")
+		.style("height", ttHeight + "em")
 		.style("left", (d3.event.pageX - box.left + 10) + "px")
 		.style("top", (d3.event.pageY - box.top - 100) + "px");
 }
@@ -564,17 +579,29 @@ function resetCountryIfNoData() {
 
 /* called by the slider */
 function setYear(ext, value) {
-	selectedYear = value;
-	// update everything that varies by year
-	updateSliderYear();
-	setCountryInfoYear();
-	drawLineGraphYearLine();
-	setCountryInfoAccessText();
-	updateMapColors();
+	// Allow the slider to show more years than you can actually select
+	// As in have the years 2000, 2005, 2010 all show on the axis, but
+	// Even if you only have data from 2001 onwards
+	if(value >= config.minYear && value <= config.maxYear){
+		selectedYear = value;
+		// update everything that varies by year
+		updateSliderYear();
+		setCountryInfoYear();
+		drawLineGraphYearLine();
+		setCountryInfoAccessText();
+		updateMapColors();
+	}
 }
 
 function setSource(source) {
 	selectedSource = source;
+	sourceName = source + "Unit";
+	if(usePercentages) {
+		numberUnit = config.waterUnit;
+	} else {
+		numberUnit = config.sanitationUnit;
+	}
+	
 	resetCountryIfNoData();
 	// update everything that varies by source
 	d3.select("#wrapperdiv").attr("class", "wrapper " + selectedSource);
@@ -596,12 +623,25 @@ function getCountryName(country_code) {
 }
 
 function valueForCountry(country_code, year) {
-	if (isDataForCountry(country_code)) {
-		var initial = allData[country_code][selectedSource + "_initial"];
-		var increase = allData[country_code][selectedSource + "_increase"];
-		var numYears = year - config.minYear;
-		// don't return a value > 100
-		return Math.min(100, initial + (numYears * increase));
+	// Different approaches if displaying percentages or absolute values
+	if(usePercentages){
+		if (isDataForCountry(country_code)) {
+			var initial = allData[country_code][selectedSource + "_initial"];
+			var increase = allData[country_code][selectedSource + "_increase"];
+			var numYears = year - config.minYear;
+			// don't return a value > 100 for percentages
+			return Math.min(100, initial + (numYears * increase));
+		}
+	} else {
+			if (isDataForCountry(country_code)) {
+			var initial = allData[country_code][selectedSource + "_initial"];
+			var change = allData[country_code][selectedSource + "_increase"];
+			var numYears = year - config.minYear;
+			// Special case for when projected indicator value goes below zero		
+			// There should be no upper limit if it's not a percentage value
+			return Math.max(initial + (numYears * change), 1);
+		}
+		
 	}
 	// catch all exit
 	return null;
@@ -611,10 +651,15 @@ function targetValueForCountry(country_code, year) {
 	if (isDataForCountry(country_code) && year > config.thisYear) {
 		var initial = allData[country_code][selectedSource + "_initial"];
 		var increase = allData[country_code][selectedSource + "_increase"];
-		var thisYearValue = Math.min(100,
-			initial + (increase * (config.thisYear - config.minYear)));
-		var targetIncrease = (100 - thisYearValue) / (config.maxYear - config.thisYear);
-
+		if (usePercentages)
+		{
+			var thisYearValue = Math.min(100,
+				initial + (increase * (config.thisYear - config.minYear)));
+			var targetIncrease = (100 - thisYearValue) / (config.maxYear - config.thisYear);
+		} else {
+			var thisYearValue = initial + (increase * (config.thisYear - config.minYear));
+			var targetIncrease = (thisYearValue) / (config.maxYear - config.thisYear);
+		}
 		return thisYearValue + (targetIncrease * (year - config.thisYear));
 	}
 	// catch all exit
@@ -700,10 +745,13 @@ function updateMapInfo() {
 		d3.select("#select-water-source").attr("class", "button source current-source");
 		d3.select("#select-sanitation-source").attr("class", "button source");
 		extraSpace = "<br />&nbsp";
+		// Update whether to use percentages or not
+		usePercentages = true;
 	} else {
 		d3.select("#select-water-source").attr("class", "button source");
 		d3.select("#select-sanitation-source").attr("class", "button source current-source");
 		extraSpace = "";
+		usePercentages = false;
 	}
 
 	d3.select(".map-info > h1 > span.big")
@@ -716,7 +764,12 @@ function updateMapInfo() {
 
 function setCountryInfoAccessText() {
 	var accessText, accessTextPast, accessTextFuture;
-	var percentValue = formatPercent(valueForCountry(selectedCountry, selectedYear));
+	if(usePercentages){
+		var value = formatPercent(valueForCountry(selectedCountry, selectedYear));
+	} else {
+		var value = formatNumber(valueForCountry(selectedCountry, selectedYear));
+	}
+		
 	if (selectedSource == 'water') {
 		accessTextPast = getTranslation('of people have access to water - past');
 		accessTextFuture = getTranslation('of people have access to water - future');
@@ -735,14 +788,18 @@ function setCountryInfoAccessText() {
 	accessTextElement.selectAll("*").remove();
 	var percentSpan = accessTextElement.append("span")
 		.attr("class", "access-percentage")
-		.text(percentValue);
+		.text(value);
+	if(usePercentages)
+	{
 	percentSpan.append("span")
 		.attr("class", "percent-sign")
-		.text("%");
+		.text(numberUnit);
+	}
 	accessTextElement.append("span").text(" " + accessText + " ");
 	accessTextElement.append("span")
 		.attr("class", "in-year")
 		.text("in " + selectedYear.toString());
+	
 	if (selectedYear > config.thisYear) {
 		accessTextElement.append("span")
 			.attr("class", "actual-projected")
@@ -759,7 +816,7 @@ function setCountryInfoAccessText() {
 			.text(targetValue);
 		percentSpan.append("span")
 			.attr("class", "percent-sign")
-			.text("%");
+			.text(numberUnit);
 		accessTextElement.append("span").text(" " + targetText + " ");
 		accessTextElement.append("span")
 			.attr("class", "in-year")
@@ -947,13 +1004,18 @@ function updateTargetPanel() {
 			d3.select(".for-target .targets-number-unit").text("");
 		}
 
-		// now do the extra percent bit
-		var extraPercent = extraPercentToHitTarget(selectedCountry);
-		if (extraPercent > 0) {
-			d3.select(".targets-percent").style("visibility", "visible");
-			d3.select(".targets-percent-digits").text(extraPercent.toFixed(1));
+		if(usePercentages)
+		{		
+			// now do the extra percent bit
+			var extraPercent = extraPercentToHitTarget(selectedCountry);
+			if (extraPercent > 0) {
+				d3.select(".targets-percent").style("visibility", "visible");
+				d3.select(".targets-percent-digits").text(extraPercent.toFixed(1));
+			} else {
+				d3.select(".targets-percent").style("visibility", "hidden");
+			}
 		} else {
-			d3.select(".targets-percent").style("visibility", "hidden");
+		
 		}
 
 		// now do the people
@@ -1017,7 +1079,7 @@ function createSlider() {
 	mapSlider = d3.select('#year-slider').call(
 		d3.slider()
 			.axis(true)
-			.min(config.minYear)
+			.min(Math.min(2000, config.minYear)) // At least 2000 so that the axis shows
 			.max(config.maxYear)
 			.step(1)
 			.value(selectedYear)
@@ -1026,14 +1088,11 @@ function createSlider() {
 }
 
 function loadedDataCallback(error, africa, dataset, langData) {
-	console.log('loading Data callback');
 	allData = dataset;
 	mapData = africa;
 	translations = langData;
-
 	updateStaticText();
 
-	// Does this need to be amended for Indian data?
 	var countries = topojson.feature(africa, africa.objects.subunits).features;
 	var borders = topojson.mesh(africa, africa.objects.subunits,
 		function(a, b) { return true; });
@@ -1058,9 +1117,7 @@ function loadedDataCallback(error, africa, dataset, langData) {
 		.attr("class", "country-border");
 
 	updateLegend();
-
 	updateSideBar();
-
 	createSlider();
 
 	addLinksToShareButtons();
@@ -1075,6 +1132,8 @@ function loadedDataCallback(error, africa, dataset, langData) {
 function setDefaultSelections() {
 	selectedCountry = config.initialCountry;
 	selectedYear = config.thisYear;
+	usePercentages = config.usePercentages;
+	numberUnit = config.waterUnit;
 }
 
 function init(mapconfig) {
@@ -1098,12 +1157,12 @@ function init(mapconfig) {
 	var height = width * mapRatio;
 
 	// Set these depending the indicator, i.e. do we have a percentage indicator or some absolute values
-
 	colorDomain = [1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 101];
 	extColorDomain = [1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 101]; 
 
+	// Default language
 	var lang = "en";
-	// Overrides language settings
+	// Overrides language settings from the url
 	if (QueryString.hasOwnProperty("lang")) {
 		lang = QueryString.lang;
 	}
@@ -1112,7 +1171,7 @@ function init(mapconfig) {
 	// Adjust the translation of the projection to ensure that the clicking and hovering functionality remains
 	var projection = d3.geo.mercator()
 		.scale(width/1.25)
-		.translate([-width +80, height/2+10]);
+		.translate([-width + 80, height/2+10]);
 	path = d3.geo.path().projection(projection);
 
 	d3.select("#select-water-source")
@@ -1138,6 +1197,7 @@ function init(mapconfig) {
 function reset() {
 	setDefaultSelections();
 	selectedYear = config.minYear;
+
 	// update everything that varies by source, year and country
 	createSlider();
 	setCountryInfoAccessText();

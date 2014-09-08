@@ -27,24 +27,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-KTB5LZ');</script> -->
 
 <noscript>
-	<h1>Africa Water Map</h1>
-	<p>This map shows which African countries are on track to reach everyone,
-	everywhere with access to water and sanitation by 2030, and what increase
-	in access is required in countries that are not on track.
-	</p>
+	<h1>India Sanitation Map</h1>
+	<p>This map shows the progress on various sanitation indicators within Indian states and districts.</p>
 	<p>This page requires javascript to be enabled for the interactive part to work,
 	but below is an image of how it would appear if you did enable javascript.</p>
-	<img alt="Africa Water Map" src="images/fallback.png"></img>
+	<img alt="India Water Map" src="images/fallback.png"></img>
 </noscript>
 
-<h1 id="fallback-title" class="fallback">Africa Water Map</h1>
+<h1 id="fallback-title" class="fallback">India Water Map</h1>
 <p id="fallback-text" class="fallback">
 Your browser does not support the features needed to view this map properly - you could use any recent version of <a href="https://www.google.com/chrome/" target="_top">Chrome</a>, <a href="https://www.mozilla.org/firefox/" target="_top">Firefox</a>, Opera or Safari, or Internet Explorer version 9 or greater.
 </p>
 
 <div id="wrapperdiv" class="wrapper water">
 	<div class="social-share">
-			<h2>share <a id="twitter-search-link" title="follow Africa Water Map on twitter using #africawatermap hashtag" href="https://twitter.com/#africawatermap" target="_top"> #AfricaWaterMap</a></h2>
+			<h2>share <a id="twitter-search-link" title="follow India Sanitation Map on twitter using #indiasanitationmap hashtag" href="https://twitter.com/#indiasanitationmap" target="_top"> #IndiaSanitationMap</a></h2>
 			<ul class="ss-share">
 				<li class="ss-share-item">
 					<a class="ss-share-link ico-facebook" target="_blank" title="Share on Facebook"></a>
@@ -64,15 +61,15 @@ Your browser does not support the features needed to view this map properly - yo
 			</ul>
 			<div class="embed-example">
 				You can embed this map in your own site by adding the following HTML to your page:
-				<pre>&lt;iframe src="http://africawatermap.aptivate.org/index.html" width="900" height="1000"&gt;&lt;/iframe&gt;</pre>
+				<pre>&lt;iframe src="www.doubledashgames.com/indiasanitationmap/index.html" width="1100" height="1000"&gt;&lt;/iframe&gt;</pre>
 			</div>
 		</div>
 	<section class="mainmap">
 		<section class="map-info">
-				<h1 id="map-info-title">Progress of Africa’s access to 
-					<span class="big water"> water<strong> 1990-2030</strong><br />&nbsp;</span>
+				<h1 id="map-info-title">Progress of India's access to 
+					<span class="big water"> Sanitation<strong> 2001-2030</strong><br />&nbsp;</span>
 				</h1>
-				<p class="instructions">Drag the slider to change the year and click on a country to see more information.</p>
+				<p class="instructions">Drag the slider to change the year and click on an area to see more information.</p>
 				<div id="map-legend" class="legend">
 					<div id="map-legend-svg"></div>
 					<div id="map-legend-text">
@@ -82,8 +79,9 @@ Your browser does not support the features needed to view this map properly - yo
 					</div>
 				</div>
 				<div id="select-source">
-					<a href="#" id="select-water-source" class="button source current-source">Water</a>
-					<a href="#" id="select-sanitation-source" class="button source">Sanitation</a>
+					<a href="#" id="select-water-source" class="button source current-source">Sanitation Density</a>
+					<a href="#" id="select-sanitation-source" class="button source">Sanitation Access</a>
+					<a href="#" id="select-sanitation-source" class="button source">Third Indicator</a>
 					<div id="reset-button">Reset timeline</div>
 				</div>
 			</section>
@@ -154,12 +152,12 @@ Your browser does not support the features needed to view this map properly - yo
 
 <script>
 wwMap.init({
-	minYear: 1990,
+	minYear: 2001,
 	thisYear: 2014,
 	maxYear: 2030,
 	initialSource: 'water',
 	initialCountry: 'Africa',
-	yearsOnGraph: [1990, 2011, 2015, 2022, 2030],
+	yearsOnGraph: [2001, 2011, 2015, 2022, 2030],
 	mapurl_topojson: 'data/india_states_map.json',
 	dataurl: 'data/waterdata.json',
 	waterColorRange: [
@@ -169,24 +167,40 @@ wwMap.init({
 		"#da670f", "#d45500", "#800000"
 		 ],
 		 
-	waterDomain: [1, 20, 40, 60, 80, 100, 250, 500, 750, 2000],
-	
-	waterExtColorDomain: [1, 20, 40, 60, 80, 100, 250, 500, 750, 2000],
+	waterDomain: [1, 20, 40, 60, 80, 100, 200, 300, 400, 500],
+	waterExtColorDomain: [1, 20, 40, 60, 80, 100, 200, 300, 400, 500],
 	
 	// waterColorRange: [
 		//"#8c9494", "#8398a2", "#7c9baa", "#73a1b4",
 		//"#6aa6bd", "#62abc7", "#5aafd0", "#52b4d9",
 		//"#49bae4", "#3fc0f0"], 
+		
 	sanitationColorRange: [
 		"#d45500", "#da670f", "#eb7e1f", "#eb941f",
 		"#ebb01f", "#f2c83d", "#d3cc4f", "#86c26f",
 		"#4db181", "#15b598"],
 		
 	sanitationDomain:  [1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 101],
-	
 	sanitationExtColorDomain:  [1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 101],
-		
+	
+	// Generalising for n amount of indicators
+	option1Domain:[],
+	option1ExtColorDomain:[],
+	option1Unit:"",
+	
+	option2Domain:[],
+	option2ExtColorDomain:[],
+	option2Unit:"",
+
+	option3Domain:[],
+	option3ExtColorDomain:[],
+	option3Unit:"",
+	
+	waterUnit: " per square km",
+	sanitationUnit: " %",
+	
 	noDataColor: "#eee",
+	usePercentages: false,
 	lineGraphAspectRatio: 0.6,
 	lineGraphMargin: 5,
 	twitterHashTagWater: "AfricaWaterMap",

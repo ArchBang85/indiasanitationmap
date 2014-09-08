@@ -160,7 +160,7 @@ h2 > a {
 
 .country-border {
 	fill: none;
-	stroke: #000000;
+	stroke: #000011;
 	stroke-width: 1;
 	stroke-linejoin: round;
 }
@@ -170,7 +170,7 @@ h2 > a {
 	stroke-width: 3;
 	stroke-linejoin: round;
 }
-.selected-country-border.water { stroke: orange; }
+.selected-country-border.water { stroke: green; }
 .selected-country-border.sanitation { stroke: black; }
 
 
@@ -315,7 +315,7 @@ span.tooltip-country {
 span.tooltip-percent {
 	color: orange;
 	font-weight: bold;
-	font-size: 1.2em;
+	font-size: 1.1em;
 }
 
 /*--Year Slider--*/

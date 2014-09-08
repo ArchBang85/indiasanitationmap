@@ -1,8 +1,8 @@
 {
-	"water": "water",
+	"water": "Sanitation density",
 	"sanitation": "sanitation",
 
-	"access to water": "access to water",
+	"access to water": "Sanitation density",
 	"access to sanitation": "access to sanitation",
 
 	"of people have access to water - past": "of people had access to water",
@@ -15,11 +15,11 @@
 	"current trends": "(on current trends)",
 	"to achieve targets": "to achieve targets",
 
-	"Africa Water Week": "Africa Water Week",
-	"Africa Water Map": "Africa Water Map",
+	"Africa Water Week": "India",
+	"Africa Water Map": "India Sanitation Map",
 	"browser fallback": "Your browser does not support the features needed to view this map properly - you could us any recent version of <a href=\"https://www.google.com/chrome/\" target=\"_top\">Chrome</a>, <a href=\"https://www.mozilla.org/firefox/\" target=\"_top\">Firefox</a>, Opera or Safari, or Internet Explorer version 9 or greater.",
 
-	"map info title": "Progress of Africa’s access to ",
+	"map info title": "Levels of ",
 
 	"instructions": "Drag the slider to change the year and click on a country to see more information.",
 
@@ -27,8 +27,8 @@
 
 	"share": "Share",
 
-	"follow africa water map": "follow Africa Water Map on twitter using #africawatermap hashtag",
-	"follow africa sanitation map": "follow Africa Sanitation Map on twitter using #africasanitationmap hashtag",
+	"follow africa water map": "follow India Sanitation Map on twitter using #indiasanitationmap hashtag",
+	"follow africa sanitation map": "follow India Sanitation Map on twitter using #indiasanitationmap hashtag",
 
 	"share on facebook": "Share on Facebook",
 	"share on twitter": "Share on Twitter",
@@ -36,26 +36,25 @@
 	"share on linkedin": "Share on LinkedIn",
 
 
-	"twitter share text water": "Check out progress of access to clean water by African nations with interactive #AfricaWaterMap",
+	"twitter share text water": "Check out progress of access to sanitation in India with interactive #IndiaSanitationMap",
 
-	"twitter share text sanitation": "Check out progress of access to safe sanitation by African nations with interactive #AfricaWaterMap",
+	"twitter share text sanitation": "Check out progress of access to safe sanitation by Indian states and districts with interactive #SanitationWaterMap",
 
-	"other share text water": "Which countries are on track with water? Check out the progress being made by African nations in their provision of clean water for all in the new #AfricaWaterMap. Find out where each nation is at now, where they are predicted to be by 2030, and if they are on track to reach everyone, everywhere with clean, safe water by 2030",
+	"other share text water": "Which countries are on track with water? Check out the progress being made by Indian states and districts in their provision of sanitation.",
 
-	"other share text sanitation": "Which countries are on track with sanitation? Check out the progress being made by African nations in their provision of sanitation for all in the new #AfricaSanitationMap. Find out where each nation is at now, where they are predicted to be by 2030, and if they are on track to reach everyone, everywhere with sanitation by 2030.",
-
+	"other share text sanitation": "Which parts of India are on track with sanitation? Check out the progress being made by Indian states and districts in their provision of sanitation for all in the new #IndiaSanitationMap.",
 
 	"embed this map": "Embed this map in your site",
 	"you can embed this map": "You can embed this map in your own site by adding the following HTML to your page:",
 
-	"Everyone, Everywhere by 2030": "Everyone, Everywhere by 2030",
+	"Everyone, Everywhere by 2030": "",
 	"currently": "currently",
 	"for targets": "for target",
 
 	"one_letter_1000": "k",
 	"one_letter_1000000": "m",
 
-	"Total number of new people gaining access to water": "Total number of new people gaining access to water",
+	"Total number of new people gaining access to water": "T",
 	"more people per year will gain access to water": "more people per year will gain access to water",
 	"Total number of new people gaining access to sanitation": "Total number of new people gaining access to sanitation",
 	"more people per year will gain access to sanitation": "more people per year will gain access to sanitation",
@@ -67,10 +66,47 @@
 	"That is just % of the population": "Only an extra <span class=\"targets-percent-digits\"></span>% of the <a title=\"Find out more\" href=\"http://www.wateraid.org/get-involved/campaigns/africa-water-week#/about-our-interactive-map\" target=\"_top\">2030 population</a> needs to be reached annually to achieve universal access",
 
 	"about this map": "About this map",
-	"this map shows which ...": "This map shows which African countries are on track to reach everyone, everywhere with access to water and sanitation by 2030, and what increase in access is required in countries that are not on track.",
+	"this map shows which ...": "-",
 	"find out more": "Find out more about the data in this map and how we arrived at the numbers.",
 
 	"map by": "map by",
+
+	"IN.GA":"Goa",
+	"Andaman and Nicobar Islands":"Andaman and Nicobar Islands",
+	"Andhra Pradesh":"Andhra Pradesh",
+	"Arunachal Pradesh":"Arunachal Pradesh",
+	"Assam":"Assam",
+	"Bihar":"Bihar",
+	"Chandigarh":"Chandigarh",
+	"Chhattisgarh":"Chhattisgarh",
+	"Dadra and Nagar Haveli":"Dadra and Nagar Haveli",
+	"Daman and Diu":"Daman and Diu",
+	"Delhi":"Delhi",
+	"Goa":"Goa",
+	"Gujarat":"Gujarat",
+	"Haryana":"Haryana",
+	"Himachal Pradesh":"Himachal Pradesh",
+	"Jammu and Kashmir":"Jammu and Kashmir",
+	"Jharkhand":"Jharkhand",
+	"Karnataka":"Karnataka",
+	"Kerala":"Kerala",
+	"Lakshadweep":"Lakshadweep",
+	"Madhya Pradesh":"Madhya Pradesh",
+	"Maharashtra":"Maharashtra",
+	"Manipur":"Manipur",
+	"Meghalaya":"Meghalaya",
+	"Mizoram":"Mizoram",
+	"Nagaland":"Nagaland",
+	"Orissa":"Orissa",
+	"Puducherry":"Puducherry",
+	"Punjab":"Punjab",
+	"Rajasthan":"Rajasthan",
+	"Sikkim":"Sikkim",
+	"Tamil Nadu":"Tamil Nadu",
+	"Tripura":"Tripura",
+	"Uttar Pradesh":"Uttar Pradesh",
+	"Uttaranchal":"Uttaranchal",
+	"West Bengal":"West Bengal",
 
 	"Algeria": "Algeria",
 	"Angola": "Angola",
