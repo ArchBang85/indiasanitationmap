@@ -68,7 +68,8 @@ Your browser does not support the features needed to view this map properly - yo
 		<section class="map-info">
 				<h1 id="map-info-title">Progress of India's access to 
 					<span class="big indicator1"> Sanitation<strong> 2001-2030</strong><br />&nbsp;</span>
-				</h1>	<div id="level-button">Switch between States and Districts</div>
+				</h1>	
+				<div id="level-button">State / District</div>
 				<p class="instructions"><br>Drag the slider to change the year and click on an area to see more information.</p>
 
 				<div id="map-legend" class="legend">
@@ -84,7 +85,6 @@ Your browser does not support the features needed to view this map properly - yo
 					<a href="#" id="select-indicator2-source" class="button source">Sanitation Access</a>
 					<!--<a href="#" id="select-indicator3-source" class="button source">Third Indicator</a>-->
 				</div>
-				<div id="reset-button">Reset timeline</div>
 				
 			</section>
 		<div id="map">
@@ -94,9 +94,9 @@ Your browser does not support the features needed to view this map properly - yo
 				<span class="tooltip-percent"></span>
 			</div>
 		</div>
-		<section class="year-slider-section">
-			<div id="year-slider"></div>
-		</section>
+
+
+		
 	</section>
 	<aside class="info">
 		<div id="country-info"></div>
@@ -129,8 +129,15 @@ Your browser does not support the features needed to view this map properly - yo
 		</div>
 	</aside>
 	<footer class="map-footer">
+		<!-- Moving slider to footer -->
+
+		<section class="year-slider-section">
+			<div id="year-slider"></div>
+		</section>
+		<div id="reset-button">Reset timeline</div>
+		
 			<div class="map-description">
-				<h3>About this map</h3>
+				<h3 id="description-title">About this map</h3>
 			
 				<p id="description-about">
 				This map shows where Indian states and districts are with respect to sanitation indicators.

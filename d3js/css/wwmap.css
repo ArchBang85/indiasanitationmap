@@ -57,11 +57,13 @@ section.mainmap {
 section.year-slider-section {
     clear: both;
     float: left;
-    margin-left:3em;
+    margin-left:2em;
+	margin-top:7em;
+	margin-bottom:4em;
     padding-right: 1em;
     padding-top:0em;
     position: relative;
-	top: -950px;
+	top: 0px;
     width: 100%;
     padding-right:5em;
 }
@@ -79,7 +81,7 @@ aside.info {
     clear: left;
     display: block;
     float: left;
-    padding: 2em 1em 0 2.5em;
+    padding: 0em 1em 0 2.5em;
     width: 65%;
 }
 
@@ -149,7 +151,7 @@ h2 > a {
     overflow: visible;
     position: relative;
     z-index:1;
-	width: 1550px;
+	width: 1600px;
 }
 
 .map-svg {
@@ -189,8 +191,10 @@ h2 > a {
     float: left;
     font-weight: bold;
     margin-right: 0.5em;
+	margin-top: 2em;
     padding: 0.2em 0.4em 0.3em;
     text-decoration: none;
+	font-size: 1.3em;
 }
 
 #select-source .button:hover {
@@ -216,13 +220,18 @@ h2 > a {
 
 #reset-button {
     color: #2977A8;
-    display: inline-block;
-    float: left;
-    font-size: 1em;
+    display: inline;
+    float: right;
+	margin-top: 0em;
+	margin-left: 13em;
+	margin-right: 1em;
+	margin-bottom: 0em;
+	padding-bottom: 0em;
+    font-size: 1.2em;
     position: relative;
     text-decoration: underline;
     z-index: 2;
-    line-height:1.5em;
+    line-height:1em;
 }
 
 #reset-button:hover {
@@ -230,14 +239,17 @@ h2 > a {
 	color:#333333;
 }
 #level-button {
-    color: #2977A8;
-    display: inline-block;
-    float: left;
-    font-size: 1.2em;
-    position: relative;
-    text-decoration: underline;
-    z-index: 2;
-    line-height:1.5em;
+    background-color: #8CDD81;
+    color: #FFFFFF;
+    display: run-in;
+    float: right;
+    font-weight: bold;
+    margin-right: 0em;
+	margin-left: 1em;
+	margin-top: 2.2em;
+    padding: 1em 1em 1em 1em;
+    text-decoration: none;
+	font-size: 1.2em;
 }
 
 #level-button:hover {
@@ -258,9 +270,10 @@ h2 > a {
 }
 
 #map-legend > #map-legend-svg > svg {
-	width:96%;
-	margin:0!important;
-	height:0.8em;
+	width:100%;
+	margin:0.4em!important;
+	height:2em;
+		
 }
 
 #map-legend-label {
@@ -406,7 +419,8 @@ span.tooltip-percent {
 }
 
 .map-description > p {
-    display: inline;
+    display: inline-block;
+	margin-top:1em;
 }
 
 
@@ -780,6 +794,7 @@ aside.info {
 	    clear: left;
 	    display: block;
 	    padding: 0 1em 0 1.6em;
+		
 	}
 }
 

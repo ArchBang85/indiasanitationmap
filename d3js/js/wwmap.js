@@ -533,7 +533,7 @@ function hoverCountry(d) {
 		.duration(200)
 		.style("opacity", 0.9);
 	var box = d3.select("#map")[0][0].getBoundingClientRect();
-	console.log('hovering over');
+	
 	tooltipdiv
 		.style("width", ttWidth + "em")
 		.style("height", ttHeight + "em")
@@ -1197,9 +1197,9 @@ function init(mapconfig) {
 	setDefaultSelections();
 
 	var width = parseInt(d3.select('#map').style('width'));
-	var mapRatio = 1.1;
+	// Ratio looks to adjust where footer falls too
+	var mapRatio = 0.4;
 	var height = width * mapRatio;
-
 
 	// Default language
 	var lang = "en";
@@ -1212,7 +1212,7 @@ function init(mapconfig) {
 	// Adjust the translation of the projection to ensure that the clicking and hovering functionality remains
 	var projection = d3.geo.mercator()
 		.scale(width/1.25)
-		.translate([-width + 80, height/2+10]);
+		.translate([-width + 80, height/2+550]);
 	path = d3.geo.path().projection(projection);
 
 	d3.select("#select-indicator1-source")
@@ -1246,7 +1246,7 @@ function replaceUrlParam(url, paramName, paramValue){
 }
 
 function switchLevel() {
-
+	// Switch between district and state maps based on url parameter
 	if (level == "districts"){
 		window.location.href = replaceUrlParam(window.location.href, "level", "states");
 	} else if (level == "states") {
@@ -1270,4 +1270,3 @@ function reset() {
 }
 return {init: init};
 })();
-
