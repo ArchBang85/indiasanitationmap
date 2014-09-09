@@ -110,10 +110,10 @@ h2 > a {
  ===============================*/
 
 .map-info {
-	left: 30em;
+	left: 3em;
 	margin-top: 0%;
-	position: absolute;
-	width: 42%;
+	position: relative;
+	width: 95%;
 	z-index: 3;
 }
 
@@ -229,6 +229,22 @@ h2 > a {
 	cursor:pointer;
 	color:#333333;
 }
+#level-button {
+    color: #2977A8;
+    display: inline-block;
+    float: left;
+    font-size: 1.2em;
+    position: relative;
+    text-decoration: underline;
+    z-index: 2;
+    line-height:1.5em;
+}
+
+#level-button:hover {
+	cursor:pointer;
+	color:#333333;
+}
+
 
 /*--Map Legend--*/
 
@@ -785,7 +801,9 @@ aside.info {
 	.targets-title {font-size:1em;}
 	.main-footer {width:65%;}
 	#reset-button {padding-top:0.2em;}
+	#level-button {padding-top:0.2em; padding-bottom: 1em;}
 
+	
 }
 
 @media all and (max-width:620px) and (min-width:0px){
