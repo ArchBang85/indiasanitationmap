@@ -129,7 +129,8 @@ function updateStaticText() {
 	setSelectionText("#select-indicator1-source", "indicator1", true);
 	setSelectionText("#select-indicator2-source", "indicator2", true);
 	setSelectionText("#reset-button", "Reset");
-
+	setSelectionText("#level-button", "Switch level");
+	
 	// sharing section
 	setSelectionLeadingText(".social-share > h2", "share");
 	setSelectionTitle("#twitter-search-link", "follow India sanitation map");
@@ -1158,6 +1159,12 @@ function init(mapconfig) {
 
 	var mapurl, dataurl;
 	level = "states"; // default
+	var url = window.location.href;
+	if(url.search("level") == -1)
+	{
+		url += "?level=" + level;
+		window.location.href = url;
+	}
 	// override
 	if (QueryString.hasOwnProperty("level")) {
 		level = QueryString.level.replace("/","");
@@ -1213,7 +1220,8 @@ function init(mapconfig) {
 	d3.select("#select-indicator2-source")
 		.on("click", function(d) { setSource("indicator2"); });
 	d3.select("#reset-button").on("click", reset);
-
+	d3.select("#level-button").on("click", switchLevel);
+	
 	mapsvg = d3.select("#map").insert("svg", "div.tooltip")
 		.attr("width", width)
 		.attr("height", height)
@@ -1227,7 +1235,28 @@ function init(mapconfig) {
 		.defer(d3.json, lang_url)
 		.await(loadedDataCallback);
 }
+
+function replaceUrlParam(url, paramName, paramValue){
+   var pattern = new RegExp('('+paramName+'=).*?(&|$)') 
+   var newUrl = url.replace(pattern,'$1' + paramValue + '$2');
+   if(newUrl == url){
+       newUrl = newUrl + (newUrl.indexOf('?')>0 ? '&' : '?') + paramName + '=' + paramValue 
+   }
+   return newUrl
+}
+
+function switchLevel() {
+
+	if (level == "districts"){
+		window.location.href = replaceUrlParam(window.location.href, "level", "states");
+	} else if (level == "states") {
+		window.location.href = replaceUrlParam(window.location.href, "level", "districts");
+	} 
+
+}
+
 function reset() {
+
 	setDefaultSelections();
 	selectedYear = config.minYear;
 	// update everything that varies by source, year and country
@@ -1242,10 +1271,3 @@ function reset() {
 return {init: init};
 })();
 
-		/* if (level == "districts"){
-			window.location.search -= '&level=states';
-			window.location.search += '&level=districts';
-		} else {
-			window.location.search -= '&level=districts';
-			window.location.search += '&level=states';
-		} */

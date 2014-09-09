@@ -68,8 +68,8 @@ Your browser does not support the features needed to view this map properly - yo
 		<section class="map-info">
 				<h1 id="map-info-title">Progress of India's access to 
 					<span class="big indicator1"> Sanitation<strong> 2001-2030</strong><br />&nbsp;</span>
-				</h1>
-				<p class="instructions">Drag the slider to change the year and click on an area to see more information.</p>
+				</h1>	<div id="level-button">Switch between States and Districts</div>
+				<p class="instructions"><br>Drag the slider to change the year and click on an area to see more information.</p>
 
 				<div id="map-legend" class="legend">
 					<div id="map-legend-svg"></div>
@@ -85,7 +85,7 @@ Your browser does not support the features needed to view this map properly - yo
 					<!--<a href="#" id="select-indicator3-source" class="button source">Third Indicator</a>-->
 				</div>
 				<div id="reset-button">Reset timeline</div>
-
+				
 			</section>
 		<div id="map">
 			<div class="tooltip">
@@ -131,6 +131,7 @@ Your browser does not support the features needed to view this map properly - yo
 	<footer class="map-footer">
 			<div class="map-description">
 				<h3>About this map</h3>
+			
 				<p id="description-about">
 				This map shows where Indian states and districts are with respect to sanitation indicators.
 				</p>
@@ -159,9 +160,9 @@ wwMap.init({
 	initialCountry: 'Africa',
 	yearsOnGraph: [2001, 2011, 2015, 2022, 2030],
 	mapurl_topojson_states: 'data/india_states_map.json',
-	dataurl_states: 'data/waterdata.json',	
+	dataurl_states: 'data/india_states_data.json',	
 	mapurl_topojson_districts: 'data/india_districts_map.json',
-	dataurl_districts: 'data/waterdata.json',	
+	dataurl_districts: 'data/india_districts_data.json',	
 	// Generalising for n amount of indicators
 	indicator1ColorRange: [
 		"#15b598", "#4db181",
