@@ -4,7 +4,7 @@ var config, allData, mapData, translations,
 	selectedCountry, selectedYear, selectedSource,
 	path, mapsvg, colorScale, mapSlider, tooltipdiv,
 	graphsvg, lgX, lgY, usePercentages, numberUnit,
-	colorDomain, extColorDomain, activeDomain, level;
+	colorDomain, extColorDomain, activeDomain, level, maxY;
 	
 // from http://stackoverflow.com/a/979995/3189
 var QueryString = function () {
@@ -515,7 +515,7 @@ function hoverCountry(d) {
 	var countryName = getCountryName(d.id);
 	// set the width according to the length of the country name, but don't
 	// get too small
-	console.log(countryName);
+	
 	if(countryName === undefined){
 		var ttWidth = minWidth;
 		var ttHeight = minHeight;
@@ -767,8 +767,11 @@ function updateMapInfo() {
 	if(config[selectedSource + "Unit"].search("%") == -1 && config[selectedSource + "Unit"].search("percent") == -1)
 	{
 		usePercentages = false;
+		// Set the scale of the y-axis for the graph in the info bar
+		maxY = config[selectedSource + "Domain"][config[(selectedSource + "Domain")].length-1];
 	} else {
 		usePercentages = true;
+		maxY = 100;
 	}
 
 	d3.select(".map-info > h1 > span.big")
@@ -824,34 +827,43 @@ function setCountryInfoAccessText() {
 	}
 	
 	endTrendValue = valueForCountry(selectedCountry, config.maxYear);
-	if (selectedYear > config.thisYear && endTrendValue < 100) {
-		targetValue = formatPercent(targetValueForCountry(selectedCountry, selectedYear));
-		targetTextElement = accessTextElement.append("p")
-			.attr("class", "target-increase");
-		percentSpan = accessTextElement.append("span")
-			.attr("class", "target-percentage")
-			.text(targetValue);
-		percentSpan.append("span")
-			.attr("class", "percent-sign")
-			.text(numberUnit);
-		accessTextElement.append("span").text(" " + targetText + " ");
-		accessTextElement.append("span")
-			.attr("class", "in-year")
-			.text("in " + selectedYear.toString());
-		accessTextElement.append("span")
-			.attr("class", "achieve-targets")
-			.text(" " + getTranslation("to achieve targets"));
+	
+	if(usePercentages){
+		
+	} else { 
+		if (selectedYear > config.thisYear && endTrendValue < 100) {
+			targetValue = formatPercent(targetValueForCountry(selectedCountry, selectedYear));
+			targetTextElement = accessTextElement.append("p")
+				.attr("class", "target-increase");
+			percentSpan = accessTextElement.append("span")
+				.attr("class", "target-percentage")
+				.text(targetValue);
+			percentSpan.append("span")
+				.attr("class", "percent-sign")
+				.text(numberUnit);
+			accessTextElement.append("span").text(" " + targetText + " ");
+			accessTextElement.append("span")
+				.attr("class", "in-year")
+				.text("in " + selectedYear.toString());
+			accessTextElement.append("span")
+				.attr("class", "achieve-targets")
+				.text(" " + getTranslation("to achieve targets"));
+		}
 	}
+	
+	
 }
 
 function drawLineGraphYearLine() {
+	// Adjust line based on type of data
 	d3.select(".year-line").remove();
 	graphsvg.append("svg:line")
 		.attr("class", "year-line")
 		.attr("x1", lgX(selectedYear))
 		.attr("y1", -1 * lgY(0))
 		.attr("x2", lgX(selectedYear))
-		.attr("y2", -1 * lgY(100));
+		.attr("y2", -1 * lgY(maxY));
+
 }
 
 function plotAllYearData() {
@@ -880,7 +892,7 @@ function plotAllYearData() {
 
 	var margin = {left: 30, right: 15, top: 6, bottom: 20};
 	lgY = d3.scale.linear()
-		.domain([0, 100])
+		.domain([0, maxY])
 		.range([0 + margin.bottom, height - margin.top]);
 	lgX = d3.scale.linear()
 		.domain([config.minYear, config.maxYear])
@@ -1151,6 +1163,7 @@ function setDefaultSelections() {
 	selectedYear = config.thisYear;
 	usePercentages = config.usePercentages;
 	numberUnit = config.indicator1Unit;
+	maxY = config.indicator1Domain[(config.indicator1Domain).length-1];
 }
 
 function init(mapconfig) {
@@ -1159,6 +1172,7 @@ function init(mapconfig) {
 
 	var mapurl, dataurl;
 	level = "states"; // default
+	// Set level of the map (state or district) based on url
 	var url = window.location.href;
 	if(url.search("level") == -1)
 	{
@@ -1259,6 +1273,7 @@ function reset() {
 
 	setDefaultSelections();
 	selectedYear = config.minYear;
+
 	// update everything that varies by source, year and country
 	createSlider();
 	setCountryInfoAccessText();
