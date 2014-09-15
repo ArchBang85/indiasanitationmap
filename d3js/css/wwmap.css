@@ -260,7 +260,6 @@ h2 > a {
 
 /*--Map Legend--*/
 
-
 .legend {
 	padding:0.5em 0;
 }
@@ -608,7 +607,7 @@ aside.info {
 #country-info-graph {
 	background-color: #FFFFFF;
 	width:100%;
-	margin-top:0.25em;
+	margin-top:3em;
 }
 #country-info-graph > .inner { margin: 5px; }
 #country-info-graph > .inner > svg { margin-top: 5px; margin-bottom: 5px; }

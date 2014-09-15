@@ -594,6 +594,7 @@ function setYear(ext, value) {
 
 function setSource(source) {
 	selectedSource = source;
+	// Adjust domain based on used indicator
 	activeDomain = config[selectedSource + "Domain"];
 	activeExtColorDomain = config[selectedSource + "extColorDomain"];
 	sourceName = source + "Unit";
@@ -624,10 +625,10 @@ function valueForCountry(country_code, year) {
 	if(usePercentages){
 		if (isDataForCountry(country_code)) {
 			var initial = allData[country_code][selectedSource + "_initial"];
-			var increase = allData[country_code][selectedSource + "_increase"];
+			var change = allData[country_code][selectedSource + "_increase"];
 			var numYears = year - config.minYear;
 			// don't return a value > 100 for percentages
-			return Math.min(100, initial + (numYears * increase));
+			return Math.min(100, initial + (numYears * change));
 		}
 	} else {
 			if (isDataForCountry(country_code)) {
@@ -636,7 +637,7 @@ function valueForCountry(country_code, year) {
 			var numYears = year - config.minYear;
 			// Special case for when projected indicator value goes below zero		
 			// There should be no upper limit if it's not a percentage value
-			return Math.max(initial + (numYears * change), 0);
+			return Math.min(initial + (numYears * change), maxY);
 		}
 		
 	}
@@ -645,7 +646,11 @@ function valueForCountry(country_code, year) {
 }
 
 function targetValueForCountry(country_code, year) {
+	var highValueGood = false
 	if (isDataForCountry(country_code) && year > config.thisYear) {
+		// Needs to know whether a lower or a higher value is good 
+
+	
 		var initial = allData[country_code][selectedSource + "_initial"];
 		var increase = allData[country_code][selectedSource + "_increase"];
 		if (usePercentages)
@@ -655,7 +660,13 @@ function targetValueForCountry(country_code, year) {
 			var targetIncrease = (100 - thisYearValue) / (config.maxYear - config.thisYear);
 		} else {
 			var thisYearValue = initial + (increase * (config.thisYear - config.minYear));
-			var targetIncrease = (thisYearValue) / (config.maxYear - config.thisYear);
+			if(highValueGood)
+			{
+				var targetIncrease = (maxY - thisYearValue) / (config.maxYear - config.thisYear);
+			} else {
+				var targetIncrease = 0;
+				return 0
+			}
 		}
 		return thisYearValue + (targetIncrease * (year - config.thisYear));
 	}
@@ -671,10 +682,38 @@ function findYear100(country_code) {
 		if (increase <= 0) {
 			return null;
 		}
-		return Math.round((100 - initial) / increase) + config.minYear;
+		if(usePercentages){
+			// min year e.g. 2001 + an amount of years where the line intersects 100
+			return Math.round((100 - initial) / increase) + config.minYear;
+		} else {
+			// What happens when we are not using percentages? 
+			return 0;
+			//return Math.round((maxY - initial) / increase) + config.minYear; // HUOM
+		}
 	}
 	return null;
 }
+
+/* finds the year when the value = 0 */
+function findYear0(country_code) {
+	if (isDataForCountry(country_code)) {
+		var initial = allData[country_code][selectedSource + "_initial"];
+		var increase = allData[country_code][selectedSource + "_increase"];
+		if (increase <= 0) {
+			// return the year when the line crosses 0
+			var res = Math.round((0-initial) / increase) + config.minYear; 
+			console.log(res);
+			return res;		
+		}
+		if(usePercentages){
+			return Math.round((initial) / increase) + config.maxYear;
+		} else {
+			return null;
+		}
+	}
+	return null;
+}
+
 
 function extractDataForSourceAndYear() {
 	// selectedSource should be "water" or "sanitation"
@@ -862,7 +901,7 @@ function drawLineGraphYearLine() {
 		.attr("x1", lgX(selectedYear))
 		.attr("y1", -1 * lgY(0))
 		.attr("x2", lgX(selectedYear))
-		.attr("y2", -1 * lgY(maxY));
+		.attr("y2", -1 * lgY(maxY+1));
 
 }
 
@@ -888,8 +927,14 @@ function plotAllYearData() {
 
 	// dimensions of line graph
 	var width = parseInt(visDivInner.style('width'));
-	var height = config.lineGraphAspectRatio * width;
-
+	// Different if percentage or not
+	if(maxY == 100) 
+	{
+		var height = config.lineGraphAspectRatio * width;
+	} else { 
+		var height = maxY * config.lineGraphAspectRatio;
+	}
+	
 	var margin = {left: 30, right: 15, top: 6, bottom: 20};
 	lgY = d3.scale.linear()
 		.domain([0, maxY])
@@ -911,6 +956,7 @@ function plotAllYearData() {
 	var maxYearValue = valueForCountry(selectedCountry, config.maxYear);
 
 	// the graph lines
+	// From the start of recorded time till the current year
 	graphsvg.append("svg:line")
 		.attr("class", "history")
 		.attr("x1", lgX(config.minYear))
@@ -918,7 +964,7 @@ function plotAllYearData() {
 		.attr("x2", lgX(config.thisYear))
 		.attr("y2", -1 * lgY(thisYearValue));
 
-	if (maxYearValue > 99.9) {
+	if (maxYearValue > 99.9 && usePercentages) {
 		// handle the case where we hit 100% before maxYear
 		var year100 = findYear100(selectedCountry);
 		graphsvg.append("svg:line")
@@ -926,16 +972,36 @@ function plotAllYearData() {
 			.attr("x1", lgX(config.thisYear))
 			.attr("y1", -1 * lgY(thisYearValue))
 			.attr("x2", lgX(year100))
-			.attr("y2", -1 * lgY(100));
+			.attr("y2", -1 * lgY(maxY));
 
 		graphsvg.append("svg:line")
 			.attr("class", "projection")
 			.attr("x1", lgX(year100))
-			.attr("y1", -1 * lgY(100))
+			.attr("y1", -1 * lgY(maxY))
 			.attr("x2", lgX(config.maxYear))
-			.attr("y2", -1 * lgY(100));
+			.attr("y2", -1 * lgY(maxY));
 
-	} else {
+	} else if (!usePercentages) {
+		// Handle cases where the value hits 0 before maxYear
+		// Draw the projected line
+		var year0 = findYear0(selectedCountry);
+		if(year0 > config.minYear)
+		{
+			graphsvg.append("svg:line")
+				.attr("class", "projection")
+				.attr("x1", lgX(config.thisYear))
+				.attr("y1", -1 * lgY(thisYearValue))
+				.attr("x2", lgX(year0))
+				.attr("y2", -1 * lgY(0));
+			// the plotted line to achieve universal access
+			// but only plot it if we won't reach it anyway
+			graphsvg.append("svg:line")
+				.attr("class", "universal")
+				.attr("x1", lgX(config.thisYear))
+				.attr("y1", -1 * lgY(thisYearValue))
+				.attr("x2", lgX(config.maxYear))
+				.attr("y2", -1 * lgY(maxY));
+		} else {
 		graphsvg.append("svg:line")
 			.attr("class", "projection")
 			.attr("x1", lgX(config.thisYear))
@@ -950,7 +1016,8 @@ function plotAllYearData() {
 			.attr("x1", lgX(config.thisYear))
 			.attr("y1", -1 * lgY(thisYearValue))
 			.attr("x2", lgX(config.maxYear))
-			.attr("y2", -1 * lgY(100));
+			.attr("y2", -1 * lgY(maxY));
+		}
 	}
 	// the axes
 	graphsvg.append("svg:line")
@@ -964,7 +1031,7 @@ function plotAllYearData() {
 		.attr("x1", lgX(config.minYear))
 		.attr("y1", -1 * lgY(0))
 		.attr("x2", lgX(config.minYear))
-		.attr("y2", -1 * lgY(100));
+		.attr("y2", -1 * lgY(maxY));
 
 	// the ticks on the axes
 	graphsvg.selectAll(".xLabel")
@@ -1273,7 +1340,6 @@ function reset() {
 
 	setDefaultSelections();
 	selectedYear = config.minYear;
-
 	// update everything that varies by source, year and country
 	createSlider();
 	setCountryInfoAccessText();
