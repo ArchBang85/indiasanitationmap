@@ -1050,12 +1050,22 @@ function plotAllYearData() {
 	if(!hitLimit){
 		if(optimalValue == "low"){
 		// Project downwards if low values are good
+		 // Projecting to max year
 		 graphsvg.append("svg:line")
 			.attr("class", "universal")
 			.attr("x1", lgX(config.thisYear))
 			.attr("y1", -1 * lgY(thisYearValue))
 			.attr("x2", lgX(config.maxYear))
 			.attr("y2", -1 * lgY(0));
+			
+		// Projecting to second target year
+		graphsvg.append("svg:line")
+			.attr("class", "government")
+			.attr("x1", lgX(config.thisYear))
+			.attr("y1", -1 * lgY(thisYearValue))
+			.attr("x2", lgX(config.targetYear2))
+			.attr("y2", -1 * lgY(0));
+		
 		} else if (optimalValue == "high") {
 		// Project upwards if high values are good
 		 graphsvg.append("svg:line")
@@ -1064,7 +1074,16 @@ function plotAllYearData() {
 			.attr("y1", -1 * lgY(thisYearValue))
 			.attr("x2", lgX(config.maxYear))
 			.attr("y2", -1 * lgY(maxY));	
+		
+		// Projecting to second target year
+		graphsvg.append("svg:line")
+			.attr("class", "government")
+			.attr("x1", lgX(config.thisYear))
+			.attr("y1", -1 * lgY(thisYearValue))
+			.attr("x2", lgX(config.targetYear2))
+			.attr("y2", -1 * lgY(maxY));
 		}
+	
 	}
 
 

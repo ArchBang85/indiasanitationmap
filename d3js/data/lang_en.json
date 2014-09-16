@@ -7,8 +7,8 @@
 	"access to indicator1": "Sanitation density",
 	"access to indicator2": "access to sanitation",
 
-	"of people have access to water - past": "of people had access to water",
-	"of people have access to water - future": "of people will have access to water",
+	"of people have access to water - past": "of people had access to sanitation",
+	"of people have access to water - future": "of people will have access to sanitation",
 	"of people have access to sanitation - past": "of people had access to sanitation",
 	"of people have access to sanitation - future": "of people will have access to sanitation",
 	"of people need access to water": "of people need access to water",
