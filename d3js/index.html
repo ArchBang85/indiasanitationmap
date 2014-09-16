@@ -179,15 +179,23 @@ wwMap.init({
 		"#da670f", "#d45500", "#800000"
 		 ],
 	indicator2ColorRange: [
-		"#d41500", "#bb1200", "#d45500", "#da670f", "#eb7e1f", "#eb941f",
-		"#ebb01f", "#f2c83d", "#d3cc4f", "#86c26f",
-		"#4db181"],
+
+	"#800000", "#d45500", "#da670f",
+	"#eb7e1f","#eb941f","#ebb01f",  
+	"#f2c83d", "#f2e63d", "#d3cc4f", 
+	"#86c26f", "#4db181",
+	],
+	
+	
+	//	"#d41500", "#bb1200", "#d45500", "#da670f", "#eb7e1f", "#eb941f",
+	//	"#ebb01f", "#f2c83d", "#f7dd87", "#d3cc4f", "#86c26f",
+	//	],
 	// Reversed colours
 		//	["#800000", "#d45500", "#da670f",
 		//	"#eb7e1f","#eb941f","#ebb01f",  
 		//	"#f2c83d",  "#d3cc4f", 
 		//	"#86c26f", "#4db181","#15b598",
-		//	],
+		//	],#4db181"
 		
 		
 	indicator1Domain: [0, 1, 40, 60, 80, 100, 150, 200, 250, 500],
@@ -196,8 +204,8 @@ wwMap.init({
 	indicator1Unit: " open defecation per square km",
 	indicator1OptimalValue: "low",
 	
-	indicator2Domain:[10, 20, 30, 40, 50, 60, 70, 80, 90, 99],
-	indicator2ExtColorDomain:[10, 20, 30, 40, 50, 60, 70, 80, 90, 99],
+	indicator2Domain:[10, 20, 30, 40, 50, 60, 70, 80, 90, 101],
+	indicator2ExtColorDomain:[10, 20, 30, 40, 50, 60, 70, 80, 90, 101],
 	indicator2Unit:" %",
 	indicator2OptimalValue: "high",
 
@@ -210,7 +218,7 @@ wwMap.init({
 	targetYear2: 2019,
 	
 	noDataColor: "#eee",
-	usePercentages: false,
+	usePercentages: true,
 	lineGraphAspectRatio: 0.6,
 	lineGraphMargin: 5,
 	twitterHashTagWater: "IndiaSanitationMap",

@@ -950,7 +950,7 @@ function plotAllYearData() {
 	// dimensions of line graph
 	var width = parseInt(visDivInner.style('width'));
 	// Different dimensions depending on if using percentages or not
-	if(maxY == 100) 
+	if(maxY < 110) 
 	{
 		var height = config.lineGraphAspectRatio * width;
 	} else { 
@@ -1295,9 +1295,10 @@ function setDefaultSelections() {
 	selectedCountry = config.initialCountry;
 	selectedYear = config.thisYear;
 	usePercentages = config.usePercentages;
-	numberUnit = config.indicator1Unit;
-	maxY = config.indicator1Domain[(config.indicator1Domain).length-1];
-	optimalValue = config.indicator1OptimalValue;
+	numberUnit = config[selectedSource + "Unit"];
+	domainArray = config[selectedSource + "Domain"];
+	maxY = domainArray[domainArray.length - 1];
+	optimalValue = config[selectedSource + "OptimalValue"];
 }
 
 function init(mapconfig) {
@@ -1337,8 +1338,8 @@ function init(mapconfig) {
 	}
 	
 	// Set these depending the indicator, i.e. do we have a percentage indicator or some absolute values
-	colorDomain = config.indicator1Domain;
-	extColorDomain = config.indicator1ExtColorDomain; 
+	colorDomain = config[selectedSource + "Domain"];
+	extColorDomain = config[selectedSource + "ExtColorDomain"]; 
 	activeDomain = colorDomain;
 	activeExtColorDomain = extColorDomain;
 
