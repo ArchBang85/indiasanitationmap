@@ -694,6 +694,25 @@ function findYear100(country_code) {
 	return null;
 }
 
+function findYearMax(country_code) {
+	if (isDataForCountry(country_code)) {
+		var initial = allData[country_code][selectedSource + "_initial"];
+		var increase = allData[country_code][selectedSource + "_increase"];
+		if (increase <= 0) {
+			return null;
+		}
+		if(usePercentages){
+			// min year e.g. 2001 + an amount of years where the line intersects 100
+			return Math.round((maxY - initial) / increase) + config.minYear;
+		} else {
+			// What happens when we are not using percentages? 
+			return Math.abs(Math.round((0-initial) / increase)) + config.minYear;
+			//return Math.round((maxY - initial) / increase) + config.minYear; // HUOM
+		}
+	}
+	return null;
+}
+
 /* finds the year when the value = 0 */
 function findYear0(country_code) {
 	if (isDataForCountry(country_code)) {
@@ -708,7 +727,7 @@ function findYear0(country_code) {
 		if(usePercentages){
 			return Math.round((initial) / increase) + config.maxYear;
 		} else {
-			return null;
+			return Math.round((0-initial) / increase) + config.minYear;;
 		}
 	}
 	return null;
@@ -927,7 +946,7 @@ function plotAllYearData() {
 
 	// dimensions of line graph
 	var width = parseInt(visDivInner.style('width'));
-	// Different if percentage or not
+	// Different dimensions depending on if using percentages or not
 	if(maxY == 100) 
 	{
 		var height = config.lineGraphAspectRatio * width;
@@ -954,7 +973,13 @@ function plotAllYearData() {
 	var minYearValue = valueForCountry(selectedCountry, config.minYear);
 	var thisYearValue = valueForCountry(selectedCountry, config.thisYear);
 	var maxYearValue = valueForCountry(selectedCountry, config.maxYear);
-
+	var limitYearValue;
+	
+	if(thisYearValue < 0)
+	{
+		thisYearValue = 0;
+	}
+	
 	// the graph lines
 	// From the start of recorded time till the current year
 	graphsvg.append("svg:line")
@@ -963,62 +988,71 @@ function plotAllYearData() {
 		.attr("y1", -1 * lgY(minYearValue))
 		.attr("x2", lgX(config.thisYear))
 		.attr("y2", -1 * lgY(thisYearValue));
-
-	if (maxYearValue > 99.9 && usePercentages) {
-		// handle the case where we hit 100% before maxYear
-		var year100 = findYear100(selectedCountry);
+	
+	// Projection line
+	
+	// Universal line
+	
+	if (maxYearValue >= maxY) {
+		// handle the case where we hit the maximum Y before maxYear
+		var yearMax = findYearMax(selectedCountry); // When the indicator value for the selected area exceeds the upper bound
+		console.log(yearMax);
 		graphsvg.append("svg:line")
 			.attr("class", "projection")
 			.attr("x1", lgX(config.thisYear))
 			.attr("y1", -1 * lgY(thisYearValue))
-			.attr("x2", lgX(year100))
+			.attr("x2", lgX(yearMax))
 			.attr("y2", -1 * lgY(maxY));
-
+		
+		// Straight line at the upper limit
 		graphsvg.append("svg:line")
 			.attr("class", "projection")
-			.attr("x1", lgX(year100))
+			.attr("x1", lgX(yearMax))
 			.attr("y1", -1 * lgY(maxY))
 			.attr("x2", lgX(config.maxYear))
 			.attr("y2", -1 * lgY(maxY));
 
-	} else if (!usePercentages) {
-		// Handle cases where the value hits 0 before maxYear
-		// Draw the projected line
-		var year0 = findYear0(selectedCountry);
-		if(year0 > config.minYear)
-		{
-			graphsvg.append("svg:line")
-				.attr("class", "projection")
-				.attr("x1", lgX(config.thisYear))
-				.attr("y1", -1 * lgY(thisYearValue))
-				.attr("x2", lgX(year0))
-				.attr("y2", -1 * lgY(0));
-			// the plotted line to achieve universal access
-			// but only plot it if we won't reach it anyway
-			graphsvg.append("svg:line")
-				.attr("class", "universal")
-				.attr("x1", lgX(config.thisYear))
-				.attr("y1", -1 * lgY(thisYearValue))
-				.attr("x2", lgX(config.maxYear))
-				.attr("y2", -1 * lgY(maxY));
-		} else {
+		} else if (maxYearValue <= 0) {
+		
+		var yearMin = findYear0(selectedCountry);
+				
+		// Hitting the lower bound before the end year
 		graphsvg.append("svg:line")
 			.attr("class", "projection")
 			.attr("x1", lgX(config.thisYear))
 			.attr("y1", -1 * lgY(thisYearValue))
-			.attr("x2", lgX(config.maxYear))
-			.attr("y2", -1 * lgY(maxYearValue));
-
-		// the plotted line to achieve universal access
-		// but only plot it if we won't reach it anyway
+			.attr("x2", lgX(yearMin))
+			.attr("y2", -1 * lgY(0));
+			
+		// Straight line at the lower limit
 		graphsvg.append("svg:line")
-			.attr("class", "universal")
-			.attr("x1", lgX(config.thisYear))
-			.attr("y1", -1 * lgY(thisYearValue))
+			.attr("class", "projection")
+			.attr("x1", lgX(yearMin))
+			.attr("y1", -1 * lgY(0))
 			.attr("x2", lgX(config.maxYear))
-			.attr("y2", -1 * lgY(maxY));
+			.attr("y2", -1 * lgY(0));
+			
+		} else {
+			// The projection line hits neither the top nor bottom bound
+			console.log('standard projection');
+			graphsvg.append("svg:line")
+				.attr("class", "projection")
+				.attr("x1", lgX(config.thisYear))
+				.attr("y1", -1 * lgY(thisYearValue))
+				.attr("x2", lgX(config.maxYear))
+				.attr("y2", -1 * lgY(maxYearValue));
 		}
-	}
+		
+	// Projection towards a target 1
+	
+	
+		
+		
+		
+		
+		
+		
+
 	// the axes
 	graphsvg.append("svg:line")
 		.attr("class", "axis")
@@ -1026,6 +1060,7 @@ function plotAllYearData() {
 		.attr("y1", -1 * lgY(0))
 		.attr("x2", lgX(config.maxYear))
 		.attr("y2", -1 * lgY(0));
+		
 	graphsvg.append("svg:line")
 		.attr("class", "axis")
 		.attr("x1", lgX(config.minYear))
@@ -1043,14 +1078,14 @@ function plotAllYearData() {
 		.attr("y", 0)
 		.attr("text-anchor", "middle");
 	graphsvg.selectAll(".yLabel")
-		.data(lgY.ticks(3))
+		.data(lgY.ticks(5))
 		.enter().append("svg:text")
 		.attr("class", "yLabel")
 		.text(String)
 		.attr("x", 0)
 		.attr("y", function(d) { return -1 * lgY(d); })
 		.attr("text-anchor", "right")
-		.attr("dy", 4);
+		.attr("dy",  4);
 
 	graphsvg.selectAll(".xTicks")
 		.data(config.yearsOnGraph)
@@ -1061,7 +1096,7 @@ function plotAllYearData() {
 		.attr("x2", function(d) { return lgX(d); })
 		.attr("y2", -1 * lgY(-5));
 	graphsvg.selectAll(".yTicks")
-		.data(lgY.ticks(3))
+		.data(lgY.ticks(5))
 		.enter().append("svg:line")
 		.attr("class", "yTicks")
 		.attr("x1", lgX(config.minYear))

@@ -1,0 +1,73 @@
+		/* 
+		}			if (maxYearValue <= 0) {
+				graphsvg.append("svg:line")
+					.attr("class", "projection")
+					.attr("x1", lgX(config.thisYear))
+					.attr("y1", -1 * lgY(thisYearValue))
+					.attr("x2", lgX(year0))
+					.attr("y2", -1 * lgY(maxY));
+
+				// Straight line at the limit
+				graphsvg.append("svg:line")
+					.attr("class", "projection")
+					.attr("x1", lgX(year0))
+					.attr("y1", -1 * lgY(0))
+					.attr("x2", lgX(config.maxYear))
+					.attr("y2", -1 * lgY(0));
+
+				}
+			
+			} 
+		} else { 
+		// When not using percentages
+		// Handle cases where the value hits the LIMIT before maxYear
+		// Draw the projected line
+			var year0 = findYear0(selectedCountry);
+			console.log(year0);
+			if(year0 <= config.maxYear && year0 >= config.minYear){
+				if(optimalValue == "low")
+				{
+					console.log(lgY(0));
+					graphsvg.append("svg:line")
+						.attr("class", "projection")
+						.attr("x1", lgX(config.thisYear))
+						.attr("y1", -1 * lgY(thisYearValue))
+						.attr("x2", lgX(year0))
+						.attr("y2", -20);
+				} else {
+					graphsvg.append("svg:line")
+						.attr("class", "projection")
+						.attr("x1", lgX(config.thisYear))
+						.attr("y1", -1 * lgY(thisYearValue))
+						.attr("x2", lgX(config.maxYear))
+						.attr("y2", -1 * lgY(maxYearValue));
+				}
+		 */
+			
+			
+	 /* else if (!usePercentages) {
+		// Handle cases where the value hits the LIMIT before maxYear
+		// Draw the projected line
+		var year0 = findYear0(selectedCountry);
+		console.log(year0);
+		// Hits 0 before max year
+		if(year0 < config.maxYear && year0 > config.minYear)
+			if(optimalValue == "low")
+				{
+					graphsvg.append("svg:line")
+						.attr("class", "projection")
+						.attr("x1", lgX(config.thisYear))
+						.attr("y1", -1 * lgY(thisYearValue))
+						.attr("x2", lgX(year0))
+						.attr("y2", -1 * lgY(0));
+				} else {
+				graphsvg.append("svg:line")
+					.attr("class", "projection")
+					.attr("x1", lgX(config.thisYear))
+					.attr("y1", -1 * lgY(thisYearValue))
+					.attr("x2", lgX(config.maxYear))
+					.attr("y2", -1 * lgY(maxYearValue));
+			}
+		
+		} */
+	
