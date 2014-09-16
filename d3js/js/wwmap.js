@@ -4,7 +4,7 @@ var config, allData, mapData, translations,
 	selectedCountry, selectedYear, selectedSource,
 	path, mapsvg, colorScale, mapSlider, tooltipdiv,
 	graphsvg, lgX, lgY, usePercentages, numberUnit,
-	colorDomain, extColorDomain, activeDomain, level, maxY;
+	colorDomain, extColorDomain, activeDomain, level, maxY, optimalValue;
 	
 // from http://stackoverflow.com/a/979995/3189
 var QueryString = function () {
@@ -937,6 +937,9 @@ function plotAllYearData() {
 	countryInfo.append("p")
 		.attr("id", "country-info-access-text");
 	setCountryInfoAccessText();
+	
+	// Find out whether a good outcome is a high value (e.g. 100%) or a low value (e.g. 0 open defecations per square km)
+	var optimalValue = config[selectedSource + "OptimalValue"];
 
 	// add the graph div
 	var visDiv = countryInfo.append("div")
@@ -974,6 +977,7 @@ function plotAllYearData() {
 	var thisYearValue = valueForCountry(selectedCountry, config.thisYear);
 	var maxYearValue = valueForCountry(selectedCountry, config.maxYear);
 	var limitYearValue;
+	var hitLimit = false;
 	
 	if(thisYearValue < 0)
 	{
@@ -991,12 +995,10 @@ function plotAllYearData() {
 	
 	// Projection line
 	
-	// Universal line
-	
 	if (maxYearValue >= maxY) {
+		hitLimit = true;
 		// handle the case where we hit the maximum Y before maxYear
 		var yearMax = findYearMax(selectedCountry); // When the indicator value for the selected area exceeds the upper bound
-		console.log(yearMax);
 		graphsvg.append("svg:line")
 			.attr("class", "projection")
 			.attr("x1", lgX(config.thisYear))
@@ -1013,7 +1015,7 @@ function plotAllYearData() {
 			.attr("y2", -1 * lgY(maxY));
 
 		} else if (maxYearValue <= 0) {
-		
+		hitLimit = true;
 		var yearMin = findYear0(selectedCountry);
 				
 		// Hitting the lower bound before the end year
@@ -1034,7 +1036,6 @@ function plotAllYearData() {
 			
 		} else {
 			// The projection line hits neither the top nor bottom bound
-			console.log('standard projection');
 			graphsvg.append("svg:line")
 				.attr("class", "projection")
 				.attr("x1", lgX(config.thisYear))
@@ -1044,10 +1045,29 @@ function plotAllYearData() {
 		}
 		
 	// Projection towards a target 1
-	
-	
-		
-		
+	// Don't project if target already reached
+	// What about if the opposite limit has already been reached? Then there still should be a projection line to the intended target
+	if(!hitLimit){
+		if(optimalValue == "low"){
+		// Project downwards if low values are good
+		 graphsvg.append("svg:line")
+			.attr("class", "universal")
+			.attr("x1", lgX(config.thisYear))
+			.attr("y1", -1 * lgY(thisYearValue))
+			.attr("x2", lgX(config.maxYear))
+			.attr("y2", -1 * lgY(0));
+		} else if (optimalValue == "high") {
+		// Project upwards if high values are good
+		 graphsvg.append("svg:line")
+			.attr("class", "universal")
+			.attr("x1", lgX(config.thisYear))
+			.attr("y1", -1 * lgY(thisYearValue))
+			.attr("x2", lgX(config.maxYear))
+			.attr("y2", -1 * lgY(maxY));	
+		}
+	}
+
+
 		
 		
 		
@@ -1068,7 +1088,7 @@ function plotAllYearData() {
 		.attr("x2", lgX(config.minYear))
 		.attr("y2", -1 * lgY(maxY));
 
-	// the ticks on the axes
+	// the ticks on the axes 
 	graphsvg.selectAll(".xLabel")
 		.data(config.yearsOnGraph)
 		.enter().append("svg:text")
@@ -1266,6 +1286,7 @@ function setDefaultSelections() {
 	usePercentages = config.usePercentages;
 	numberUnit = config.indicator1Unit;
 	maxY = config.indicator1Domain[(config.indicator1Domain).length-1];
+	optimalValue = config.indicator1OptimalValue;
 }
 
 function init(mapconfig) {

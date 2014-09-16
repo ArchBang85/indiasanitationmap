@@ -635,6 +635,7 @@ aside.info {
 .indicator2 #country-info line.universal { stroke: #43C4AD; }
 
 .indicator1 #country-info line.universal { stroke: #3FC0F0; }
+
 #country-info line.year-line {
 	stroke: #aaa;
 	stroke-width: 1;
