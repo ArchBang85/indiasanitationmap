@@ -538,11 +538,11 @@ aside.info {
 /*--Country info--*/
 
 #country-info {
-    border-top: 5px solid #65CDF3;
+    border-top: 7px solid #65CDF3;
     padding: 1em;
     position:relative;
     background-color:#F8F8F8;
-    margin-top:1em;
+    margin-top:11em;
 }
 
 .indicator2 #country-info {
@@ -864,7 +864,7 @@ aside.info {
 	    background-color: #FFFFFF;
 	    font-size: 0.83em;
 	    position:absolute;
-	    right: 10px;
+	    right: 12px;
 	    top: 0;
 	    z-index: 2;
 	}

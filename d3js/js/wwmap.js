@@ -1083,15 +1083,7 @@ function plotAllYearData() {
 			.attr("x2", lgX(config.targetYear2))
 			.attr("y2", -1 * lgY(maxY));
 		}
-	
-	}
-
-
-		
-		
-		
-		
-
+	}		
 	// the axes
 	graphsvg.append("svg:line")
 		.attr("class", "axis")
