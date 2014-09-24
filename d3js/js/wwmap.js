@@ -125,9 +125,10 @@ function updateStaticText() {
 	setSelectionHtml("#fallback-text", "browser fallback");
 	setSelectionLeadingText("#map-info-title", "map info title");
 	setSelectionLeadingText(".map-info > h1 > span.big", selectedSource);
-	setSelectionHtml(".instructions", "instructions");
+	setSelectionHtml(".instructions", selectedSource + "instructions");
 	setSelectionText("#select-indicator1-source", "indicator1", true);
 	setSelectionText("#select-indicator2-source", "indicator2", true);
+	setSelectionText("#select-indicator3-source", "indicator3", true);
 	setSelectionText("#reset-button", "Reset");
 	setSelectionText("#level-button", "Switch level");
 	
@@ -735,7 +736,7 @@ function findYear0(country_code) {
 
 
 function extractDataForSourceAndYear() {
-	// selectedSource should be "water" or "sanitation"
+	// selectedSource
 	var yearData = {};
 	// cycle through the countries
 	for (var country_code in allData) {
@@ -800,6 +801,8 @@ function updateLegend() {
 		title = getTranslation("access to indicator1");
 	} else if (selectedSource == 'indicator2') {
 		title = getTranslation("access to indicator2");
+	} else if (selectedSource == 'indicator3') {
+		title = getTranslation("access to indicator3");
 	}
 	d3.select("#map-legend-label")
 		.text(title);
@@ -813,12 +816,18 @@ function updateMapInfo() {
 	if (selectedSource == "indicator1") {
 		d3.select("#select-indicator1-source").attr("class", "button source current-source");
 		d3.select("#select-indicator2-source").attr("class", "button source");
+		d3.select("#select-indicator3-source").attr("class", "button source");
 		extraSpace = "<br />&nbsp";
-		// Update whether to use percentages or not
-	} else {
+	} else if (selectedSource == "indicator2") {
 		d3.select("#select-indicator1-source").attr("class", "button source");
 		d3.select("#select-indicator2-source").attr("class", "button source current-source");
-		extraSpace = "";
+		d3.select("#select-indicator3-source").attr("class", "button source");
+		extraSpace = "<br />&nbsp";
+	} else if (selectedSource == "indicator3") {
+		d3.select("#select-indicator1-source").attr("class", "button source");
+		d3.select("#select-indicator2-source").attr("class", "button source");
+		d3.select("#select-indicator3-source").attr("class", "button source current-source");
+		extraSpace = "<br />&nbsp";
 	}
 	
 	// If the unit contains percentages, then use percentage logic
@@ -852,10 +861,14 @@ function setCountryInfoAccessText() {
 		accessTextPast = getTranslation('of people have access to water - past');
 		accessTextFuture = getTranslation('of people have access to water - future');
 		targetText = getTranslation('of people need access to water');
-	} else {
+	} else if (selectedSource == 'indicator2') {
 		accessTextPast = getTranslation('of people have access to sanitation - past');
 		accessTextFuture = getTranslation('of people have access to sanitation - future');
 		targetText = getTranslation('of people need access to sanitation');
+	} else {
+		accessTextPast = getTranslation('of people have access to indicator3 - past');
+		accessTextFuture = getTranslation('of people have access to indicator3 - future');
+		targetText = getTranslation('of people need access to indicator3');
 	}
 	if (selectedYear <= config.thisYear) {
 		accessText = accessTextPast;
@@ -1001,6 +1014,7 @@ function plotAllYearData() {
 		var yearMax = findYearMax(selectedCountry); // When the indicator value for the selected area exceeds the upper bound
 		graphsvg.append("svg:line")
 			.attr("class", "projection")
+			.style("stroke-dasharray", ("3, 3"))
 			.attr("x1", lgX(config.thisYear))
 			.attr("y1", -1 * lgY(thisYearValue))
 			.attr("x2", lgX(yearMax))
@@ -1009,6 +1023,7 @@ function plotAllYearData() {
 		// Straight line at the upper limit
 		graphsvg.append("svg:line")
 			.attr("class", "projection")
+			.style("stroke-dasharray", ("3, 3"))
 			.attr("x1", lgX(yearMax))
 			.attr("y1", -1 * lgY(maxY))
 			.attr("x2", lgX(config.maxYear))
@@ -1021,6 +1036,7 @@ function plotAllYearData() {
 		// Hitting the lower bound before the end year
 		graphsvg.append("svg:line")
 			.attr("class", "projection")
+			.style("stroke-dasharray", ("3, 3"))
 			.attr("x1", lgX(config.thisYear))
 			.attr("y1", -1 * lgY(thisYearValue))
 			.attr("x2", lgX(yearMin))
@@ -1029,6 +1045,7 @@ function plotAllYearData() {
 		// Straight line at the lower limit
 		graphsvg.append("svg:line")
 			.attr("class", "projection")
+			.style("stroke-dasharray", ("3, 3"))
 			.attr("x1", lgX(yearMin))
 			.attr("y1", -1 * lgY(0))
 			.attr("x2", lgX(config.maxYear))
@@ -1038,6 +1055,7 @@ function plotAllYearData() {
 			// The projection line hits neither the top nor bottom bound
 			graphsvg.append("svg:line")
 				.attr("class", "projection")
+				.style("stroke-dasharray", ("3, 3"))
 				.attr("x1", lgX(config.thisYear))
 				.attr("y1", -1 * lgY(thisYearValue))
 				.attr("x2", lgX(config.maxYear))
@@ -1126,6 +1144,7 @@ function plotAllYearData() {
 		.attr("y1", -1 * lgY(0))
 		.attr("x2", function(d) { return lgX(d); })
 		.attr("y2", -1 * lgY(-5));
+	
 	graphsvg.selectAll(".yTicks")
 		.data(lgY.ticks(5))
 		.enter().append("svg:line")
@@ -1135,6 +1154,14 @@ function plotAllYearData() {
 		.attr("x2", lgX(config.minYear-1))
 		.attr("y2", function(d) { return -1 * lgY(d); });
 
+	// Add labels	
+	graphsvg.append("text")
+		.attr("transform", "translate(" + 50 + "," + -70 + ")")
+		.attr("dy", ".35em")
+		.attr("text-anchor", "start")
+		.style("fill", "red")
+		.text("Open");
+		
 	// finally add the year line
 	drawLineGraphYearLine();
 }
@@ -1356,6 +1383,7 @@ function init(mapconfig) {
 	if (QueryString.hasOwnProperty("lang")) {
 		lang = QueryString.lang;
 	}
+	
 	var lang_url = 'data/lang_' + lang + '.json';
 
 	// Adjust the translation of the projection to ensure that the clicking and hovering functionality remains
@@ -1368,6 +1396,9 @@ function init(mapconfig) {
 		.on("click", function(d) { setSource("indicator1"); });
 	d3.select("#select-indicator2-source")
 		.on("click", function(d) { setSource("indicator2"); });
+	d3.select("#select-indicator3-source")
+		.on("click", function(d) { setSource("indicator3"); });	
+		
 	d3.select("#reset-button").on("click", reset);
 	d3.select("#level-button").on("click", switchLevel);
 	

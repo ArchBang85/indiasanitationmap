@@ -1,16 +1,18 @@
 {
-	"indicator1": "Open defecation density",
-	"indicator2": "Sanitation access",
+	"indicator1": "Open Defecation Density",
+	"indicator2": "Percentage of households with access to a household latrine",
+	"indicator3": "Indicator 3",
 	"water": "Sanitation density",
 	"sanitation": "sanitation",
 
-	"access to indicator1": "Sanitation density",
-	"access to indicator2": "access to sanitation",
+	"access to indicator1": "Households defecating in the open per square kilometre",
+	"access to indicator2": "Access to sanitation",
+	"access to indicator3": "Indicator3",
 
-	"of people have access to water - past": "of people had access to sanitation",
-	"of people have access to water - future": "of people will have access to sanitation",
-	"of people have access to sanitation - past": "of people had access to sanitation",
-	"of people have access to sanitation - future": "of people will have access to sanitation",
+	"of people have access to water - past":"number of households defecating in the Open per Square Kilometre",
+	"of people have access to water - future": "Number of Households Defecating in the Open per Square Kilometre",
+	"of people have access to sanitation - past": "of Households with Access to a Household Latrine",
+	"of people have access to sanitation - future": "of Households with Access to a Household Latrine",
 	"of people need access to water": "of people need access to water",
 	"of people need access to sanitation": "of people need access to sanitation",
 	"actual and projected": "actual and projected",
@@ -21,12 +23,14 @@
 	"India Sanitation Map": "India Sanitation Map",
 	"browser fallback": "Your browser does not support the features needed to view this map properly - you could us any recent version of <a href=\"https://www.google.com/chrome/\" target=\"_top\">Chrome</a>, <a href=\"https://www.mozilla.org/firefox/\" target=\"_top\">Firefox</a>, Opera or Safari, or Internet Explorer version 9 or greater.",
 
-	"map info title": "Levels of ",
+	"map info title": "",
 
-	"instructions": "Drag the slider to change the year and click on a country to see more information.",
-
+	"indicator1instructions": "Drag the slider to change the year and click on a state to see more information.",
+	"indicator2instructions": "Drag the slider to change the year and click on a district to see more information.",
+	"indicator3instructions": "Drag the slider to change the year and click on a district to see more information.",
+	
 	"Reset": "Reset timeline",
-	"Switch level": "State / District",
+	"Switch level": "State / District view",
 	"District level": "District View",
 
 	"share": "Share",

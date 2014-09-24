@@ -47,7 +47,7 @@ a, a img, img a {
 section.mainmap {
     float: left;
     min-width: 200px;
-    max-width:850px;
+    max-width:800px;
     padding-right: 0em;
     position: relative;
     width: 60%;
@@ -140,6 +140,7 @@ h2 > a {
 
 .big.indicator1 {color: #3FC0F0;}
 .big.indicator2 {color: #43C4AD;}
+.big.indicator3 {color: #43C4AD;}
 
 .instructions {
     font-size: 0.95em;
@@ -173,9 +174,8 @@ h2 > a {
 	stroke-linejoin: round;
 }
 .selected-country-border.indicator1 { stroke: green; }
-.selected-country-border.indicator2 { stroke: black; }
-
-
+.selected-country-border.indicator2 { stroke: green; }
+.selected-country-border.indicator3 { stroke: green; }
 
 #select-source {
     display: block;
@@ -190,8 +190,8 @@ h2 > a {
     display: inline-block;
     float: left;
     font-weight: bold;
-    margin-right: 0.5em;
-	margin-top: 2em;
+    margin-right: 0.3em;
+	margin-top: 0.2em;
     padding: 0.2em 0.4em 0.3em;
     text-decoration: none;
 	font-size: 1.3em;
@@ -199,23 +199,50 @@ h2 > a {
 
 #select-source .button:hover {
 	background-color:#333;
+
 }
 
 
 #select-indicator1-source.button.source:hover {
     background-color: #3FC0F0;
+	border-style: solid;
+	border-width: 3px;
+	border-color: #333;
 }
 
 #select-indicator2-source.button.source:hover {
-    background-color: #DD7733;
+    background-color: #3FC0F0;
+	border-style: solid;
+	border-width: 3px;
+	border-color: #333;
+}
+
+#select-indicator3-source.button.source:hover {
+    background-color: #3FC0F0;
+	border-style: solid;
+	border-width: 3px;
+	border-color: #333;
 }
 
 #select-indicator1-source.button.current-source {
-	background-color:#3FC0F0;
+	background-color:#f49414;
+	border-style: solid;
+	border-width: 3px;
+	border-color: #333;
 }
 
 #select-indicator2-source.button.current-source {
-	background-color:#43C4AD;
+	background-color:#f49414;
+	border-style: solid;
+	border-width: 3px;
+	border-color: #333;
+}
+
+#select-indicator3-source.button.current-source {
+	background-color:#f49414;
+	border-style: solid;
+	border-width: 3px;
+	border-color: #333;
 }
 
 #reset-button {
@@ -241,12 +268,15 @@ h2 > a {
 #level-button {
     background-color: #8CDD81;
     color: #FFFFFF;
-    display: run-in;
-    float: right;
+	position:absolute;
+    display: flex;
+    float: left;
+	left: 330px;
+	top: 50px;
     font-weight: bold;
     margin-right: 0em;
 	margin-left: 1em;
-	margin-top: 2.2em;
+	margin-top: 8.2em;
     padding: 1em 1em 1em 1em;
     text-decoration: none;
 	font-size: 1.2em;
@@ -281,15 +311,29 @@ h2 > a {
 .zero-percent {
 	float: left;
 	}
+.25-percent {
+	float: center;
+	}
+.75-percent {
+	float: center;
+	}
+
 .hundred-percent {
 	float: right;
 	}
 .legend-number {
 	font-size: 2em;
 	font-weight: bold; }
+.legend-mid-number {
+	font-size: 2em;
+	font-weight: bold;
+	margin-left: 1em;
+
+}
 .legend-percent {
 	font-size: 0.8em;
 	}
+
 
 /*--Map Legend--*/
 
@@ -549,6 +593,9 @@ aside.info {
 	border-top:5px solid #43C4AD;
 }
 
+.indicator3 #country-info {
+	border-top:5px solid #43C4AD;
+}
 
 .country-info-year {
     background-color: #FFA500;
@@ -595,8 +642,12 @@ aside.info {
 
 .indicator1 #country-info-access-text > .access-percentage { color:#6B6A67; }
 .indicator2 #country-info-access-text > .access-percentage { color: #DD7733; }
+.indicator3 #country-info-access-text > .access-percentage { color: #DD7733; }
+
 .indicator1 #country-info-access-text > .target-percentage {color: #3FC0F0;}
 .indicator2 #country-info-access-text > .target-percentage {color: #43C4AD;}
+.indicator3 #country-info-access-text > .target-percentage {color: #43C4AD;}
+
 .percent-sign {
     font-size: 0.7em;
     left: 0.1em;
@@ -622,6 +673,11 @@ aside.info {
 	stroke-width: 3;
 }
 
+.indicator3 #country-info line.history,
+.indicator3 #country-info line.projection {
+	stroke: #DD7733;
+	}
+
 .indicator2 #country-info line.history,
 .indicator2 #country-info line.projection {
 	stroke: #DD7733;
@@ -631,6 +687,8 @@ aside.info {
 .indicator1 #country-info line.projection {
 	stroke: #555;
 	}
+	
+.indicator3 #country-info line.universal { stroke: #43C4AD; }
 	
 .indicator2 #country-info line.universal { stroke: #43C4AD; }
 
@@ -707,12 +765,15 @@ aside.info {
 
 .indicator1 .currently { color:#666; }
 .indicator2 .currently { color: #DD7733; }
+.indicator3 .currently { color: #DD7733; }
 
 .currently > .targets-detail {
 	padding-left:1em;
 }
 .indicator1 .for-target {color: #3FC0F0;}
 .indicator2 .for-target {color: #43C4AD;}
+.indicator3 .for-target {color: #43C4AD;}
+
 .for-target > .targets-detail {
 	padding-right:1em;
 }
@@ -746,9 +807,11 @@ aside.info {
 .person { fill: #aaa; }
 .indicator1 .person.current { fill: #666; }
 .indicator2 .person.current { fill: #DD7733; }
+.indicator3 .person.current { fill: #DD7733; }
 .person.current .negative { fill: red; }
 .indicator1 .person.target { fill: #3FC0F0; }
 .indicator2 .person.target { fill: #43C4AD; }
+.indicator3 .person.target { fill: #43C4AD; }
 .person.key { fill: #aaa; }
 
 /*------Footer----------------
@@ -767,8 +830,6 @@ aside.info {
 	font-weight:bold;
 	font-size:0.98em;
 }
-
-
 
 /*------Fallback----------------
  ===============================*/
@@ -817,7 +878,7 @@ aside.info {
 	#country-info {font-size:0.9em;}
 	.targets-title {font-size:1em;}
 	.main-footer {width:65%;}
-	#reset-button {padding-top:0.2em;}
+	#reset-button {padding-top:0.05em;}
 	#level-button {padding-top:0.2em; padding-bottom: 1em;}
 
 	
