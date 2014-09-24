@@ -3,25 +3,25 @@
 	"indicator2": "Percentage of households with access to a household latrine",
 	"indicator3": "Indicator 3",
 	"water": "Sanitation density",
-	"sanitation": "sanitation",
+	"sanitation": "Sanitation",
 
 	"access to indicator1": "Households defecating in the open per square kilometre",
 	"access to indicator2": "Access to sanitation",
 	"access to indicator3": "Indicator3",
 
-	"of people have access to water - past":"number of households defecating in the Open per Square Kilometre",
-	"of people have access to water - future": "Number of Households Defecating in the Open per Square Kilometre",
-	"of people have access to sanitation - past": "of Households with Access to a Household Latrine",
-	"of people have access to sanitation - future": "of Households with Access to a Household Latrine",
-	"of people need access to water": "of people need access to water",
-	"of people need access to sanitation": "of people need access to sanitation",
+	"of people have access to water - past":"Number of households defecating in the open per square kilometre",
+	"of people have access to water - future": "Number of households defecating in the open per square kilometre",
+	"of people have access to sanitation - past": "Number of households with access to a household latrine",
+	"of people have access to sanitation - future": "Number of households with access to a household latrine",
+	"of people need access to water": "Number of people need access to water",
+	"of people need access to sanitation": "Number of people need access to sanitation",
 	"actual and projected": "actual and projected",
 	"current trends": "(on current trends)",
 	"to achieve targets": "to achieve targets",
 
 	"Africa Water Week": "India",
-	"India Sanitation Map": "India Sanitation Map",
-	"browser fallback": "Your browser does not support the features needed to view this map properly - you could us any recent version of <a href=\"https://www.google.com/chrome/\" target=\"_top\">Chrome</a>, <a href=\"https://www.mozilla.org/firefox/\" target=\"_top\">Firefox</a>, Opera or Safari, or Internet Explorer version 9 or greater.",
+	"India Sanitation Map": "India sanitation map",
+	"browser fallback": "Your browser does not support the features needed to view this map properly - you could us any recent version of <a href=\"https://www.google.com/chrome/\" target=\"_top\">Chrome</a>, <a href=\"https://www.mozilla.org/firefox/\" target=\"_top\">Firefox</a>, Opera or Safari, or Internet Explorer version 9 or later.",
 
 	"map info title": "",
 
@@ -30,13 +30,13 @@
 	"indicator3instructions": "Drag the slider to change the year and click on a district to see more information.",
 	
 	"Reset": "Reset timeline",
-	"Switch level": "State / District view",
-	"District level": "District View",
+	"Switch level": "State / district view",
+	"District level": "District view",
 
 	"share": "Share",
 
-	"follow India sanitation map": "follow India Sanitation Map on twitter using #indiasanitationmap hashtag",
-	"follow africa sanitation map": "follow India Sanitation Map on twitter using #indiasanitationmap hashtag",
+	"follow India sanitation map": "follow the India sanitation map on twitter using the #IndiaSanitationMap hashtag",
+	"follow africa sanitation map": "follow the India sanitation map on twitter using the #IndiaSanitationMap hashtag",
 
 	"share on facebook": "Share on Facebook",
 	"share on twitter": "Share on Twitter",
@@ -44,34 +44,34 @@
 	"share on linkedin": "Share on LinkedIn",
 
 
-	"twitter share text indicator1": "Check out progress of access to sanitation in India with interactive #IndiaSanitationMap",
+	"twitter share text indicator1": "Check out the progress of access to sanitation in India with interactive #IndiaSanitationMap",
 
-	"twitter share text indicator2": "Check out progress of access to safe sanitation by Indian states and districts with interactive #SanitationWaterMap",
+	"twitter share text indicator2": "Check out the progress of access to safe sanitation by Indian states and districts with interactive #IndiaWaterMap",
 
 	"other share text indicator1": "Which countries are on track with water? Check out the progress being made by Indian states and districts in their provision of sanitation.",
 
 	"other share text indicator2": "Which parts of India are on track with sanitation? Check out the progress being made by Indian states and districts in their provision of sanitation for all in the new #IndiaSanitationMap.",
 
-	"embed this map": "Embed this map in your site",
-	"you can embed this map": "You can embed this map in your own site by adding the following HTML to your page:",
+	"embed this map": "Embed this map into your site",
+	"you can embed this map": "You can embed this map into your own site by adding the following HTML to your page:",
 
 	"Everyone, Everywhere by 2030": "",
 	"currently": "currently",
 	"for targets": "for target",
 
 	"one_letter_1000": "k",
-	"one_letter_1000000": "m",
+	"one_letter_1000000": "M",
 
-	"Total number of new people gaining access to water": "T",
+	"Total number of new people gaining access to water": "Total number of new people gaining access to water",
 	"more people per year will gain access to water": "more people per year will gain access to water",
 	"Total number of new people gaining access to sanitation": "Total number of new people gaining access to sanitation",
 	"more people per year will gain access to sanitation": "more people per year will gain access to sanitation",
 
-	"extra people per year": "extra people per year needed to reach 2030 target",
+	"extra people per year": "extra people per year needed to reach 2019 target",
 
 	"people": "people",
 
-	"That is just % of the population": "Only an extra <span class=\"targets-percent-digits\"></span>% of the <a title=\"Find out more\" href=\"http://www.wateraid.org/get-involved/campaigns/africa-water-week#/about-our-interactive-map\" target=\"_top\">2030 population</a> needs to be reached annually to achieve universal access",
+	"That is just % of the population": "Only an extra <span class=\"targets-percent-digits\"></span>% of the <a title=\"Find out more\" href=\"http://www.wateraid.org/get-involved/campaigns/africa-water-week#/about-our-interactive-map\" target=\"_top\">2019 population</a> needs to be reached annually to achieve universal access",
 
 	"about this map": "About this map",
 	"this map shows which ...": "-",
