@@ -494,8 +494,6 @@ function countryClicked(d) {
 
 	}
 
-
-
 }
 
 function hoverCountry(d) {
@@ -957,9 +955,17 @@ function plotAllYearData() {
 	// add the graph div
 	var visDiv = countryInfo.append("div")
 		.attr("id", "country-info-graph");
+	var visDivLegend = visDiv.append("div")
+	//	.attr("class", "graphLegend");
+		.attr("id", "graphL");
 	var visDivInner = visDiv.append("div")
 		.attr("class", "inner");
 
+		
+	var legendImage = document.createElement("img");
+	legendImage.setAttribute("src", "images/legend.png");
+	document.getElementById("graphL").appendChild(legendImage);
+		
 	// dimensions of line graph
 	var width = parseInt(visDivInner.style('width'));
 	// Different dimensions depending on if using percentages or not
@@ -1154,13 +1160,6 @@ function plotAllYearData() {
 		.attr("x2", lgX(config.minYear-1))
 		.attr("y2", function(d) { return -1 * lgY(d); });
 
-	// Add labels	
-	graphsvg.append("text")
-		.attr("transform", "translate(" + 50 + "," + -70 + ")")
-		.attr("dy", ".35em")
-		.attr("text-anchor", "start")
-		.style("fill", "red")
-		.text("Open");
 		
 	// finally add the year line
 	drawLineGraphYearLine();
@@ -1407,6 +1406,8 @@ function init(mapconfig) {
 		.attr("height", height)
 		.attr("class", "map-svg");
 
+	// Let's see if we can make a dotted line for 
+		
 	tooltipdiv = d3.select("#map > .tooltip");
 
 	queue()
