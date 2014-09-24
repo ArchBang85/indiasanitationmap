@@ -57,9 +57,10 @@ section.mainmap {
 section.year-slider-section {
     clear: both;
     float: left;
-    margin-left:2em;
-	margin-top:7em;
-	margin-bottom:4em;
+	display:table;
+    margin-left:1em;
+	margin-top:2.2em;
+	margin-bottom:0em;
     padding-right: 1em;
     padding-top:0em;
     position: relative;
@@ -129,13 +130,13 @@ h2 > a {
 .big {
     clear: both;
     display: block;
-    font-size: 2em;
-    line-height:1em;
+    font-size: 1.8em;
+    line-height: 1.1em;
 }
 
 .big > strong {
     color: #333333;
-    font-size: 0.7em;
+    font-size: 0.9em;
 }
 
 .big.indicator1 {color: #3FC0F0;}
@@ -144,11 +145,11 @@ h2 > a {
 
 .instructions {
     font-size: 0.95em;
-    margin: 0.5em 0;
+    margin: 0.2em 0;
 }
 
 #map {
-    margin: 0 0 0em 1em;
+    margin: 7em 0 0em 1em;
     overflow: visible;
     position: relative;
     z-index:1;
@@ -271,15 +272,15 @@ h2 > a {
 	position:absolute;
     display: flex;
     float: left;
-	left: 330px;
-	top: 50px;
+	left: 280px;
+	top: 380px;
     font-weight: bold;
     margin-right: 0em;
 	margin-left: 1em;
 	margin-top: 8.2em;
     padding: 1em 1em 1em 1em;
     text-decoration: none;
-	font-size: 1.2em;
+	font-size: 1.3em;
 }
 
 #level-button:hover {
@@ -292,6 +293,7 @@ h2 > a {
 
 .legend {
 	padding:0.5em 0;
+	display:table;
 }
 
 #map-legend > #map-legend-svg {
@@ -398,7 +400,7 @@ span.tooltip-percent {
     font-family: Verdana,Arial,sans-serif;
     font-size: 1.1em;
     position: relative;
-    z-index: 2;
+    z-index: 1;
     height:0.5em;
 }
 
@@ -848,7 +850,7 @@ aside.info {
 
 
 	section.year-slider-section {
-	    margin-bottom: 2em;
+	    margin-bottom: 0.2em;
 	    margin-left: 1.6em;
 	    padding-right: 3em;
 	}
