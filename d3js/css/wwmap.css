@@ -58,8 +58,8 @@ section.year-slider-section {
     clear: both;
     float: left;
     margin-left:3em;
-	#margin-top:2.2em;
-	margin-bottom:0em;
+	margin-top:2.2em;
+	margin-bottom:1em;
     padding-right: 1em;
     padding-top:0em;
     position: relative;
@@ -81,7 +81,8 @@ aside.info {
     clear: left;
     display: block;
     float: left;
-    padding: 0em 1em 0 2.5em;
+	margin-top:2em;
+    padding: 2em 1em 0 2.5em;
     width: 65%;
 }
 
@@ -258,10 +259,10 @@ h2 > a {
     color: #2977A8;
     display: inline;
     float: right;
-	margin-top: 0em;
+	margin-top: -4em;
 	margin-left: 13em;
 	margin-right: 1em;
-	margin-bottom: 0em;
+	margin-bottom: 2.5em;
 	padding-bottom: 0em;
     font-size: 1.2em;
     position: relative;
@@ -280,8 +281,8 @@ h2 > a {
 	position:absolute;
     display: flex;
     float: left;
-	left: 280px;
-	top: 380px;
+	left: 290px;
+	top: 450px;
     font-weight: bold;
     margin-right: 0em;
 	margin-left: 1em;
@@ -349,8 +350,10 @@ h2 > a {
 
 .legend {
     height: 30px;
-    padding-top: 0;
-    width: 100%;
+	position:absolute;
+	left:270px;
+    bottom:120px;
+    width: 25%;
 }
 #map-legend-label {
 	text-align: center;
