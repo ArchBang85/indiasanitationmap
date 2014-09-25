@@ -170,7 +170,7 @@ wwMap.init({
 	maxYear: 2019,
 	initialSource: 'indicator2',
 	initialCountry: 'Africa',
-	yearsOnGraph: [2001, 2015, 2019, 2030],
+	yearsOnGraph: [2001, 2015, 2019],
 	mapurl_topojson_states: 'data/india_states_map.json',
 	dataurl_states: 'data/india_states_data.json',	
 	mapurl_topojson_districts: 'data/india_districts_map.json',
@@ -186,11 +186,12 @@ wwMap.init({
 		 
 	// Twice the amount of colours
 	indicator2ColorRange: [
-		"#15b598", "#4db181", "#6ABA78", "#86c26f", "#ADC75F", 
-		"#d3cc4f", "#E3CA46", "#f2c83d", "#EFBC2E", "#ebb01f", 
-		"#EBA21F", "#eb941f", "#EB891F", "#eb7e1f", "#E37317",
-		"#da670f", "#D75E08", "#d45500", "#AA2B00", "#951600",
-		"#800000",
+		"#800000","#951600","#AA2B00","#d45500","#D75E08",
+		"#da670f","#E37317","#eb7e1f","#EB891F","#eb941f",
+		"#EBA21F","#ebb01f","#EFBC2E","#f2c83d","#E3CA46",
+		"#d3cc4f","#ADC75F","#86c26f","#6ABA78","#4db181",
+		"#15b598",
+
 		 ],	
 	
 	indicator1ColorRange: [
@@ -225,6 +226,8 @@ wwMap.init({
 	// old indicator1Domain: [0, 1, 40, 60, 80, 100, 150, 200, 250, 500],
 	// old indicator1ExtColorDomain: [0, 1, 40, 60, 80, 100, 150, 200, 250, 500],
 	// Note that the program determines whether to use percentages in colouring the map based on whether the unit contains % or "percent" in the text
+	indicator1Domain:[0,25,50,75,100,125,150,175,200,225,250,275,300,325,350,375,400,425,450,500],
+	indicator1ExtColorDomain:[0,25,50,75,100,125,150,175,200,225,250,275,300,325,350,375,400,425,450,500],
 	indicator1Unit: " Open Defecation per square km",
 	indicator1OptimalValue: "low",
 	
