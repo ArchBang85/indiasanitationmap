@@ -57,9 +57,8 @@ section.mainmap {
 section.year-slider-section {
     clear: both;
     float: left;
-	display:table;
-    margin-left:1em;
-	margin-top:2.2em;
+    margin-left:3em;
+	#margin-top:2.2em;
 	margin-bottom:0em;
     padding-right: 1em;
     padding-top:0em;
@@ -469,7 +468,7 @@ span.tooltip-percent {
 
 #year-slider > .d3-slider-axis text {
 	font-weight:bold;
-	font-size:0.7em;
+	font-size:1em;
 }
 
 .map-description > p {
