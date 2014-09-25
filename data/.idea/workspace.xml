@@ -23,11 +23,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="xls2json_india_states_new.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="xls2json_india_states_new.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/xls2json_india_states_new.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.35634327" vertical-offset="1526" max-vertical-offset="3604">
-              <caret line="101" column="10" selection-start-line="101" selection-start-column="10" selection-end-line="101" selection-end-column="10" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="2821" max-vertical-offset="3604">
+              <caret line="188" column="30" selection-start-line="188" selection-start-column="30" selection-end-line="188" selection-end-column="30" />
               <folding />
             </state>
           </provider>
@@ -36,28 +36,18 @@
       <file leaf-file-name="book.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://C:/Python27/Lib/site-packages/xlrd/book.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="21243" max-vertical-offset="24174">
+            <state vertical-scroll-proportion="0.0" vertical-offset="20580" max-vertical-offset="24174">
               <caret line="1223" column="0" selection-start-line="1223" selection-start-column="0" selection-end-line="1223" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="xls2json.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/xls2json.py">
+      <file leaf-file-name="xls2json_india_districts_new.py" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/xls2json_india_districts_new.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1525" max-vertical-offset="3349">
-              <caret line="147" column="5" selection-start-line="147" selection-start-column="5" selection-end-line="147" selection-end-column="5" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pydevd.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="20825" max-vertical-offset="29563">
-              <caret line="1225" column="0" selection-start-line="1225" selection-start-column="0" selection-end-line="1225" selection-end-column="0" />
+            <state vertical-scroll-proportion="2.2139535" vertical-offset="10336" max-vertical-offset="12835">
+              <caret line="664" column="39" selection-start-line="664" selection-start-column="39" selection-end-line="664" selection-end-column="39" />
               <folding />
             </state>
           </provider>
@@ -75,14 +65,15 @@
       <list>
         <option value="$PROJECT_DIR$/xls2json.py" />
         <option value="$PROJECT_DIR$/xls2json_india_states_new.py" />
+        <option value="$PROJECT_DIR$/xls2json_india_districts_new.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1379" />
-    <option name="y" value="34" />
+    <option name="x" value="-9" />
+    <option name="y" value="-9" />
     <option name="width" value="1618" />
-    <option name="height" value="918" />
+    <option name="height" value="812" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -147,7 +138,12 @@
       <console-settings />
     </option>
   </component>
-  <component name="RunManager" selected="Python.xls2json_india_states_new">
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Petriau\Downloads\indiasanitationmap\data" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.xls2json_india_districts_new">
     <configuration default="false" name="xls2json" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -179,6 +175,26 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="data" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/xls2json_india_states_new.py" />
+      <option name="PARAMETERS" value="" />
+      <RunnerSettings RunnerId="PyDebugRunner" />
+      <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PyDebugRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="xls2json_india_districts_new" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="data" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/xls2json_india_districts_new.py" />
       <option name="PARAMETERS" value="" />
       <RunnerSettings RunnerId="PyDebugRunner" />
       <RunnerSettings RunnerId="PythonRunner" />
@@ -307,14 +323,16 @@
       <option name="USE_PATTERN" value="false" />
       <method />
     </configuration>
-    <list size="2">
+    <list size="3">
       <item index="0" class="java.lang.String" itemvalue="Python.xls2json" />
       <item index="1" class="java.lang.String" itemvalue="Python.xls2json_india_states_new" />
+      <item index="2" class="java.lang.String" itemvalue="Python.xls2json_india_districts_new" />
     </list>
     <recent_temporary>
-      <list size="2">
-        <item index="0" class="java.lang.String" itemvalue="Python.xls2json_india_states_new" />
-        <item index="1" class="java.lang.String" itemvalue="Python.xls2json" />
+      <list size="3">
+        <item index="0" class="java.lang.String" itemvalue="Python.xls2json_india_districts_new" />
+        <item index="1" class="java.lang.String" itemvalue="Python.xls2json_india_states_new" />
+        <item index="2" class="java.lang.String" itemvalue="Python.xls2json" />
       </list>
     </recent_temporary>
   </component>
@@ -331,18 +349,18 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1379" y="34" width="1618" height="918" extended-state="0" />
+    <frame x="-9" y="-9" width="1618" height="812" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3025" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.50217706" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.305625" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.47314948" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28427672" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3280116" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -382,8 +400,13 @@
           <line>181</line>
           <option name="timeStamp" value="20" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/xls2json_india_districts_new.py</url>
+          <line>744</line>
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="21" />
+      <option name="time" value="26" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -437,7 +460,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/xls2json.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1525" max-vertical-offset="3349">
+        <state vertical-scroll-proportion="2.027907" vertical-offset="1525" max-vertical-offset="3349">
           <caret line="147" column="5" selection-start-line="147" selection-start-column="5" selection-end-line="147" selection-end-column="5" />
           <folding />
         </state>
@@ -445,7 +468,7 @@
     </entry>
     <entry file="file://C:/Python27/Lib/site-packages/xlrd/book.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="21243" max-vertical-offset="24174">
+        <state vertical-scroll-proportion="0.0" vertical-offset="20580" max-vertical-offset="24174">
           <caret line="1223" column="0" selection-start-line="1223" selection-start-column="0" selection-end-line="1223" selection-end-column="0" />
           <folding />
         </state>
@@ -453,8 +476,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/xls2json_india_states_new.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.35634327" vertical-offset="1526" max-vertical-offset="3604">
-          <caret line="101" column="10" selection-start-line="101" selection-start-column="10" selection-end-line="101" selection-end-column="10" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="2821" max-vertical-offset="3604">
+          <caret line="188" column="30" selection-start-line="188" selection-start-column="30" selection-end-line="188" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xls2json_india_districts_new.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="2.2139535" vertical-offset="10336" max-vertical-offset="12835">
+          <caret line="664" column="39" selection-start-line="664" selection-start-column="39" selection-end-line="664" selection-end-column="39" />
           <folding />
         </state>
       </provider>
