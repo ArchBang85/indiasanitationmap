@@ -1171,6 +1171,10 @@ function plotAllYearData() {
  * representing the numbers
  */
 function updateTargetPanel() {
+
+
+/* Disabling for India map
+
 	if (isTargetDataForCountry(selectedCountry)) {
 		var popCurrent = 1000 * allData[selectedCountry][selectedSource + "_pop_current"];
 		var popUniversal = 1000 * allData[selectedCountry][selectedSource + "_pop_universal"] - popCurrent;
@@ -1239,6 +1243,11 @@ function updateTargetPanel() {
 		drawPeople(0, 0, "target");
 		d3.select(".targets-key").style("visibility", "hidden");
 	}
+	
+*/
+
+
+
 }
 
 function updateSideBar() {
