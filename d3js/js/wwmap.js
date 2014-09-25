@@ -52,7 +52,7 @@ function numberWithCommas(number) {
 }
 
 function formatPercent(number) {
-	if (number >= 100) {
+	if (number <= 100) {
 		return Math.round(number).toString();
 	} else {
 		// Handles null values

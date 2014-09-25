@@ -507,7 +507,7 @@ span.tooltip-percent {
  ===============================*/
 
 aside.info {
-    margin:0em 1em 0 0;
+    margin:0em 0.5em 0 0;
 }
 
 
@@ -599,7 +599,7 @@ aside.info {
     padding: 1em;
     position:relative;
     background-color:#F8F8F8;
-    margin-top:11em;
+    margin-top:7.75em;
 }
 
 .indicator2 #country-info {
