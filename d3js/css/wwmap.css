@@ -149,7 +149,7 @@ h2 > a {
 }
 
 #map {
-    margin: 7em 0 0em 1em;
+    margin: 0.1em 0 0em 1em;
     overflow: visible;
     position: relative;
     z-index:1;
@@ -179,8 +179,12 @@ h2 > a {
 .selected-country-border.indicator3 { stroke: green; }
 
 #select-source {
-    display: block;
+# Set the parent as a row group and the buttons as rows to get the buttons to arrange nicely on top of each other
+    display: table-row-group; 
     float: left;
+	position: absolute;
+	left: 300px;
+	bottom: 510px;
     margin: 0.25em 0;
     z-index: 3;
 }
@@ -188,7 +192,7 @@ h2 > a {
 #select-source .button {
     background-color: #3FC0F0;
     color: #FFFFFF;
-    display: inline-block;
+    display: table-row;
     float: left;
     font-weight: bold;
     margin-right: 0.3em;
