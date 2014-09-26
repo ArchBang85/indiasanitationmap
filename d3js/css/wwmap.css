@@ -610,6 +610,10 @@ aside.info {
 	border-top:5px solid #43C4AD;
 }
 
+#country-info-advice {
+	text-align: center;
+}
+
 .country-info-year {
     background-color: #FFA500;
     color: #FFFFFF;
