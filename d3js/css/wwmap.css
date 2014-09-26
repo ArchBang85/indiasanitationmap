@@ -282,7 +282,7 @@ h2 > a {
     display: flex;
     float: left;
 	left: 290px;
-	top: 450px;
+	top: 475px;
     font-weight: bold;
     margin-right: 0em;
 	margin-left: 1em;
@@ -830,6 +830,13 @@ aside.info {
 .indicator2 .person.target { fill: #43C4AD; }
 .indicator3 .person.target { fill: #43C4AD; }
 .person.key { fill: #aaa; }
+
+/*--- Data table under graph ---*/
+
+#table1 td {
+
+	text-align: right;
+	}
 
 /*------Footer----------------
  ===============================*/

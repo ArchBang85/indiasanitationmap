@@ -1250,9 +1250,49 @@ function updateTargetPanel() {
 
 }
 
+function updateDataTable() {
+	
+	d3.selectAll("#r1c2")
+		.text(allData[selectedCountry]["no_latrine"]);
+	d3.selectAll("#r4c3")
+		.text(allData[selectedCountry]["required_complexes"]);			
+	d3.selectAll("#r4c3")
+		.text(allData[selectedCountry]["required_complexes"]);			
+	d3.selectAll("#r4c3")
+		.text(allData[selectedCountry]["required_complexes"]);		
+		
+	d3.selectAll("#r2c2")
+		.text(allData[selectedCountry]["schools_without_toilets"]);
+	d3.selectAll("#r2c3")
+		.text(allData[selectedCountry]["schools_without_toilets"]);
+	d3.selectAll("#r2c3")
+		.text(allData[selectedCountry]["schools_without_toilets"]);
+	d3.selectAll("#r2c3")
+		.text(allData[selectedCountry]["schools_without_toilets"]);
+		
+	d3.selectAll("#r3c2")
+		.text(allData[selectedCountry]["no_latrine"]);
+	d3.selectAll("#r3c3")
+		.text(allData[selectedCountry]["no_latrine"]);		
+	d3.selectAll("#r3c4")
+		.text(allData[selectedCountry]["no_latrine"]);			
+	d3.selectAll("#r3c5")
+		.text(allData[selectedCountry]["no_latrine"]);	
+
+	d3.selectAll("#r4c2")
+		.text(allData[selectedCountry]["no_latrine"]);
+	d3.selectAll("#r4c3")
+		.text(allData[selectedCountry]["required_complexes"]);			
+	d3.selectAll("#r4c3")
+		.text(allData[selectedCountry]["required_complexes"]);			
+	d3.selectAll("#r4c3")
+		.text(allData[selectedCountry]["required_complexes"]);		
+}
+
 function updateSideBar() {
 	plotAllYearData();
 	updateTargetPanel();
+	updateDataTable();
 }
 
 function colorScaleOrDefault(data, id) {
@@ -1397,7 +1437,7 @@ function init(mapconfig) {
 	// Adjust the translation of the projection to ensure that the clicking and hovering functionality remains
 	var projection = d3.geo.mercator()
 		.scale(width/1.25)
-		.translate([-width + 80, height/2+550]);
+		.translate([-width + 80, height/2+585]);
 	path = d3.geo.path().projection(projection);
 
 	d3.select("#select-indicator1-source")
@@ -1446,9 +1486,11 @@ function switchLevel() {
 }
 
 function reset() {
-
+	
 	setDefaultSelections();
 	selectedYear = config.minYear;
+	selectedCountry = config.initialCountry;
+	
 	// update everything that varies by source, year and country
 	createSlider();
 	setCountryInfoAccessText();
