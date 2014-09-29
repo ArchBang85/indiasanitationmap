@@ -73,6 +73,7 @@ function capitaliseFirstLetter(string)
 }
 
 function getTranslation(translationKey, capitalise) {
+
 	capitalise = (typeof capitalise === "undefined") ? false : capitalise;
 	if (translations.hasOwnProperty(translationKey)) {
 		if (capitalise) {
@@ -615,6 +616,7 @@ function setSource(source) {
 function getCountryName(country_code) {
 	if (allData.hasOwnProperty(country_code)) {
 		return getTranslation(allData[country_code].name);
+		return "test";
 	}
 	return "unknown";
 }
