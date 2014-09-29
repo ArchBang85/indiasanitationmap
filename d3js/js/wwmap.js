@@ -1290,9 +1290,9 @@ function updateDataTable() {
 	//	.text(allData[selectedCountry]["required_complexes"]);
 	// First Column
 	d3.selectAll("#r2c2")
-		.text(addCommas((allData[selectedCountry]["% of schools without toilet facilities"]).toFixed(decimals)));
+		.text(addCommas((allData[selectedCountry]["% of schools without toilet facilities"]).toFixed(decimals))+ "%");
 	d3.selectAll("#r3c2")
-		.text(addCommas((allData[selectedCountry]["Anganwadi - % of (No Suggestions) without toilet facilities"]).toFixed(decimals)));
+		.text(addCommas((allData[selectedCountry]["Anganwadi - % of (No Suggestions) without toilet facilities"]).toFixed(decimals)) + "%");
 		
 	// Second column
 	d3.selectAll("#r1c3")

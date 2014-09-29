@@ -695,12 +695,12 @@ aside.info {
 
 .indicator3 #country-info line.history,
 .indicator3 #country-info line.projection {
-	stroke: #DD7733;
+	stroke: #555;
 	}
 
 .indicator2 #country-info line.history,
 .indicator2 #country-info line.projection {
-	stroke: #DD7733;
+	stroke: #555;
 	}
 
 .indicator1 #country-info line.history,
