@@ -504,9 +504,9 @@ function hoverCountry(d) {
 	if (coverage !== null) {
 		if(usePercentages)
 		{
-			coverage = formatPercent(coverage) + numberUnit;
+			coverage = formatPercent(Math.max(coverage,0)) + numberUnit;
 		} else {
-			coverage = formatNumber(coverage) + numberUnit;
+			coverage = formatNumber(Math.max(coverage,0)) + numberUnit;
 		}	
 	} else {
 		coverage = "No Data";
@@ -629,7 +629,9 @@ function valueForCountry(country_code, year) {
 			var change = allData[country_code][selectedSource + "_increase"];
 			var numYears = year - config.minYear;
 			// don't return a value > 100 for percentages
-			return Math.min(100, initial + (numYears * change));
+			res = Math.min(100, initial + (numYears * change));
+			// or less than 0%
+			return Math.max(res, 0);
 		}
 	} else {
 			if (isDataForCountry(country_code)) {
@@ -638,7 +640,8 @@ function valueForCountry(country_code, year) {
 			var numYears = year - config.minYear;
 			// Special case for when projected indicator value goes below zero		
 			// There should be no upper limit if it's not a percentage value
-			return Math.min(initial + (numYears * change), maxY);
+			res = Math.min(initial + (numYears * change), maxY);
+			return Math.max(res, 0);
 		}
 		
 	}
@@ -722,13 +725,13 @@ function findYear0(country_code) {
 		if (increase <= 0) {
 			// return the year when the line crosses 0
 			var res = Math.round((0-initial) / increase) + config.minYear; 
-			console.log(res);
-			return res;		
+			
+			return Math.max(res, 0);		
 		}
 		if(usePercentages){
-			return Math.round((initial) / increase) + config.maxYear;
+			return Math.max(Math.round((initial) / increase) + config.maxYear, 0);
 		} else {
-			return Math.round((0-initial) / increase) + config.minYear;;
+			return Math.max(Math.round((0-initial) / increase) + config.minYear, 0);
 		}
 	}
 	return null;
@@ -786,9 +789,9 @@ function updateLegend() {
 	if(usePercentages)
 	{
 		d3.select("#lowerBound")
-			.text("0 %");
+			.text("0%");
 		d3.select("#upperBound")
-			.text("100 %");
+			.text("100%");
 	} else {
 		// Pick bounds from domain array
 		d3.select("#lowerBound")
@@ -1040,7 +1043,7 @@ function plotAllYearData() {
 		} else if (maxYearValue <= 0) {
 		hitLimit = true;
 		var yearMin = findYear0(selectedCountry);
-				
+			
 		// Hitting the lower bound before the end year
 		graphsvg.append("svg:line")
 			.attr("class", "projection")
@@ -1162,7 +1165,6 @@ function plotAllYearData() {
 		.attr("x2", lgX(config.minYear-1))
 		.attr("y2", function(d) { return -1 * lgY(d); });
 
-		
 	// finally add the year line
 	drawLineGraphYearLine();
 }
@@ -1521,11 +1523,9 @@ function switchLevel() {
 
 function reset() {
 	
-	setDefaultSelections();
 	selectedYear = config.minYear;
 	selectedCountry = config.initialCountry;
-	
-	// update everything that varies by source, year and country
+	setDefaultSelections();	// update everything that varies by source, year and country
 	createSlider();
 	setCountryInfoAccessText();
 	updateColorScale();

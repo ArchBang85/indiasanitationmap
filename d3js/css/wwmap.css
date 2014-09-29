@@ -867,6 +867,9 @@ tr:nth-child(odd) td { background: #FEFEFE; }
 
 tr td:hover { background: #666; color: #FFF; }
 
+/* Bottom row of table */
+#table1 tr:last-child {font-size: 1.2em;}
+
 /*------Footer----------------
  ===============================*/
 
