@@ -538,7 +538,7 @@ function hoverCountry(d) {
 		.style("width", ttWidth + "em")
 		.style("height", ttHeight + "em")
 		.style("left", (d3.event.pageX - box.left + 10) + "px")
-		.style("top", (d3.event.pageY - box.top - 100) + "px");
+		.style("top", (d3.event.pageY - box.top - 100) + "px")
 }
 
 function unhoverCountry(d) {
@@ -1252,43 +1252,55 @@ function updateTargetPanel() {
 
 }
 
-function updateDataTable() {
-	
-	d3.selectAll("#r1c2")
-		.text(allData[selectedCountry]["no_latrine"]);
-	d3.selectAll("#r4c3")
-		.text(allData[selectedCountry]["required_complexes"]);			
-	d3.selectAll("#r4c3")
-		.text(allData[selectedCountry]["required_complexes"]);			
-	d3.selectAll("#r4c3")
-		.text(allData[selectedCountry]["required_complexes"]);		
-		
-	d3.selectAll("#r2c2")
-		.text(allData[selectedCountry]["schools_without_toilets"]);
-	d3.selectAll("#r2c3")
-		.text(allData[selectedCountry]["schools_without_toilets"]);
-	d3.selectAll("#r2c3")
-		.text(allData[selectedCountry]["schools_without_toilets"]);
-	d3.selectAll("#r2c3")
-		.text(allData[selectedCountry]["schools_without_toilets"]);
-		
-	d3.selectAll("#r3c2")
-		.text(allData[selectedCountry]["no_latrine"]);
-	d3.selectAll("#r3c3")
-		.text(allData[selectedCountry]["no_latrine"]);		
-	d3.selectAll("#r3c4")
-		.text(allData[selectedCountry]["no_latrine"]);			
-	d3.selectAll("#r3c5")
-		.text(allData[selectedCountry]["no_latrine"]);	
+function addCommas(nStr)
+{
+	nStr += '';
+	x = nStr.split('.');
+	x1 = x[0];
+	x2 = x.length > 1 ? '.' + x[1] : '';
+	var rgx = /(\d+)(\d{3})/;
+	while (rgx.test(x1)) {
+		x1 = x1.replace(rgx, '$1' + ',' + '$2');
+	}
+	return x1 + x2;
+}
 
-	d3.selectAll("#r4c2")
-		.text(allData[selectedCountry]["no_latrine"]);
+function updateDataTable() {
+
+	var decimals = 0;
+	//d3.selectAll("#r4c2")
+	//	.text(allData[selectedCountry]["required_complexes"]);
+	// First Column
+	d3.selectAll("#r2c2")
+		.text(addCommas((allData[selectedCountry]["% of schools without toilet facilities"]).toFixed(decimals)));
+	d3.selectAll("#r3c2")
+		.text(addCommas((allData[selectedCountry]["Anganwadi - % of (No Suggestions) without toilet facilities"]).toFixed(decimals)));
+		
+	// Second column
+	d3.selectAll("#r1c3")
+		.text(addCommas((allData[selectedCountry]["IHHL - latrines to be constructed under SBA (only those eligible) i.e SBA target"]).toFixed(decimals)));		
+	d3.selectAll("#r2c3")
+		.text(addCommas((allData[selectedCountry]["School - Without Toilet"]).toFixed(decimals)));			
+	d3.selectAll("#r3c3")
+		.text(addCommas((allData[selectedCountry]["Anganwadi - Without Latrines"]).toFixed(decimals)));		
 	d3.selectAll("#r4c3")
-		.text(allData[selectedCountry]["required_complexes"]);			
-	d3.selectAll("#r4c3")
-		.text(allData[selectedCountry]["required_complexes"]);			
-	d3.selectAll("#r4c3")
-		.text(allData[selectedCountry]["required_complexes"]);		
+		.text(addCommas((allData[selectedCountry]["CSC - Required Complexes"]).toFixed(decimals)));
+				
+	// Third column
+	d3.selectAll("#r1c4")
+		.text(addCommas((allData[selectedCountry]["IHHL - Cost of meeting SBA target for IHHL -Lakh Rs"]).toFixed(decimals)));
+	d3.selectAll("#r2c4")
+		.text(addCommas((allData[selectedCountry]["School - Subsidy for government schools@35000 per unit -Lakh Rs"]).toFixed(decimals)));
+	d3.selectAll("#r3c4")
+		.text(addCommas((allData[selectedCountry]["Anganwadi - Subsidy for Aaganwadi toilets@8000 per unit - Lakh Rs"]).toFixed(decimals)));
+	d3.selectAll("#r4c4")
+		.text(addCommas((allData[selectedCountry]["CSC - Subsidy for Sanitary Complex@200000 per unit - Lakh  Rs"]).toFixed(decimals)));
+		
+		
+	d3.selectAll("#r5c4")
+		.text(addCommas((allData[selectedCountry]["Total cost of SBA of SBA targets (IHHL,school, Anganwadi and CSC) - Lakh Rs"]).toFixed(decimals)));
+	return 0
+			
 }
 
 function updateSideBar() {
@@ -1456,11 +1468,25 @@ function init(mapconfig) {
 		.attr("width", width)
 		.attr("height", height)
 		.attr("class", "map-svg");
-
-	// Let's see if we can make a dotted line for 
 		
 	tooltipdiv = d3.select("#map > .tooltip");
+	
+	// Change text under graph
+	if (QueryString.hasOwnProperty("level")) {
+		lvl = QueryString.level;
+	}
+	
+	if (lvl == "districts/")
+	{
+		lvl = "district";
+	} else if (lvl == "states/") {
+		lvl = "state";
+	}
 
+	d3.selectAll("#country-info-advice")
+		.text("Please click on a " + lvl + " to display data");
+		
+	
 	queue()
 		.defer(d3.json, mapurl)
 		.defer(d3.json, dataurl)
@@ -1479,12 +1505,18 @@ function replaceUrlParam(url, paramName, paramValue){
 
 function switchLevel() {
 	// Switch between district and state maps based on url parameter
-	if (level == "districts"){
+	if (level == "districts"){		
+
+		// Change data source and reload page
 		window.location.href = replaceUrlParam(window.location.href, "level", "states");
 	} else if (level == "states") {
+
+		// Change data source and reload page
 		window.location.href = replaceUrlParam(window.location.href, "level", "districts");
 	} 
 
+
+	
 }
 
 function reset() {

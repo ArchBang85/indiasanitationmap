@@ -17,9 +17,9 @@ Options:
 
 from __future__ import unicode_literals
 
-pfile = "C:\\Users\\Petriau\\Downloads\\indiasanitationmap\\data\\book2.xls"
+pfile = "mapdata_india_sanitation_states_4.xlsm"
         #mapdata_india_sanitation_states_new3.xlsx"
-afile = "C:\\Users\Petriau\\Downloads\\indiasanitationmap\\data\\mapdata3.xlsx"
+afile = "mapdata3.xlsx"
 
 import json
 import sys
@@ -30,6 +30,7 @@ import xlrd
 # The below maps the state / district names to codes that match what's in the map file
 NAME_CODE = {
 
+        "India":"IN.A1",
 	"Andaman & Nicobar Islands":"IN.AN",
 	"Andhra Pradesh":"IN.AP",
 	"Arunachal Pradesh":"IN.AR",
@@ -103,24 +104,25 @@ def process_percent_sheet(sheet, data):
         (10, 'indicator1_pop_current'),
         (11, 'indicator2_pop_current'),
         (12, 'indicator1_pop_universal'),
-        (13, 'indicator2_change_needed'),
-        (15, 'schools_without_toilets'),
-        (16, 'no_toilet'),
-        (17, 'subsidy_for_govt_schools_R'),
-        (18, 'subsidy_for_govt_schools_Lakh'),
-        (19, '%_of_noSuggestions_without_toilets'),
-        (20, 'no_latrine'),
-        (21, 'subsidy_for_anganwadi_toilets_R'),
-        (22, 'subsidy_for_anganwadi_toilets_Lakh'),
-        (23, 'required_complexes'),
-        (24, 'subsidy_for_sanitary_complex_R'),
-        (25, 'subsidy_for_sanitary_complex_Lakh'),
-        (26, 'Access_to_IHHL_latrine'),
-        (27, 'Cost_of_meeting_SBA_target_R'),
-        (28, 'Cost_of_meeting_SBA_target_Lakh'),
-        (29, 'Total_cost_of_SBA_R'),
-        (30, 'Total_cost_of_SBA_Lakh'),
-        (31, 'Total_cost_of_SBA_Crore'),
+        (13, 'indicator2_pop_universal'),
+        (15, '% of schools without toilet facilities'),
+        (16, 'School - Without Toilet'),
+        (17, 'School - Subsidy for government schools@35000 per unit - Rs'),
+        (18, 'School - Subsidy for government schools@35000 per unit -Lakh Rs'),
+        (19, 'Anganwadi - % of (No Suggestions) without toilet facilities'),
+        (20, 'Anganwadi - Without Latrines'),
+        (21, 'Anganwadi - Subsidy for Anganwadi toilets@8000 per unit - Rs'),
+        (22, 'Anganwadi - Subsidy for Aaganwadi toilets@8000 per unit - Lakh Rs'),
+        (23, 'CSC - Required Complexes'),
+        (24, 'CSC - Subsidy for Sanitary Complex@200000 per unit - Rs'),
+        (25, 'CSC - Subsidy for Sanitary Complex@200000 per unit - Lakh  Rs'),
+        (26, 'IHHL - Access to a IHHL latrine (rural only as per the baseline, APL&BPL)'),
+        (27, 'IHHL - latrines to be constructed under SBA (only those eligible) i.e SBA target'),
+        (28, 'IHHL - Cost of meeting SBA target for IHHL -Rs'),
+        (29, 'IHHL - Cost of meeting SBA target for IHHL -Lakh Rs'),
+        (30, 'Total cost of SBA of SBA targets (IHHL,school, Anganwadi and CSC) -Rs'),
+        (31, 'Total cost of SBA of SBA targets (IHHL,school, Anganwadi and CSC) - Lakh Rs'),
+        (31, 'Total cost of SBA of SBA targets (IHHL,school, Anganwadi and CSC) - Crore Rs'),
 
     ]
 
@@ -177,7 +179,7 @@ def main(argv):
 
     ## Consolidating to one sheet only
     #xls2json.py [--verbose] <xlsPercentFile> <xlsAbsoluteFile>
-    percent_book = xlrd.open_workbook(argv[0])#opts['<xlsPercentFile>'])
+    percent_book = xlrd.open_workbook(argv[0])         #opts['<xlsPercentFile>'])
     percent_sheet = percent_book.sheet_by_index(0)
     data = process_percent_sheet(percent_sheet, data)
 
@@ -193,8 +195,8 @@ def main(argv):
    # else:
         # compressed javascript
    #     print json.dumps(data, separators=(',', ':'))
-    with open("output.txt", 'w') as outfile:
-		json.dump(data, outfile)
+    with open("output_st.txt", 'w') as outfile:
+        json.dump(data, outfile)
 
 	#return
 #debugging

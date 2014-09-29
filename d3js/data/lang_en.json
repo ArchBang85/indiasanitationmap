@@ -1,20 +1,20 @@
 {
-	"indicator1": "Open defecation density",
-	"indicator2": "Percentage of households with access to a household latrine",
+	"indicator1": "Households practising open defecation per square km",
+	"indicator2": "Percentage of households defecating in the open",
 	"indicator3": "Indicator 3",
 	"water": "Sanitation density",
 	"sanitation": "Sanitation",
 
 	"access to indicator1": "Households defecating in the open per square kilometre",
-	"access to indicator2": "Access to sanitation",
+	"access to indicator2": "Percentage of households defecating in the open",
 	"access to indicator3": "Indicator3",
 
 	"of people have access to water - past":"Number of households defecating in the open per square kilometre",
 	"of people have access to water - future": "Number of households defecating in the open per square kilometre",
-	"of people have access to sanitation - past": "Number of households with access to a household latrine",
-	"of people have access to sanitation - future": "Number of households with access to a household latrine",
-	"of people need access to water": "Number of people need access to water",
-	"of people need access to sanitation": "Number of people need access to sanitation",
+	"of people have access to sanitation - past": "% of households defecating in the open",
+	"of people have access to sanitation - future": "% of households defecating in the open",
+	"of people need access to water": "Number of households defecating in the open per square kilometre",
+	"of people need access to sanitation": "% of households defecating in the open",
 	"actual and projected": "actual and projected",
 	"current trends": "(on current trends)",
 	"to achieve targets": "to achieve targets",
@@ -46,7 +46,7 @@
 
 	"twitter share text indicator1": "Check out the progress of access to sanitation in India with interactive #IndiaSanitationMap",
 
-	"twitter share text indicator2": "Check out the progress of access to safe sanitation by Indian states and districts with interactive #IndiaWaterMap",
+	"twitter share text indicator2": "Check out the progress of access to safe sanitation by Indian states and districts with interactive #IndiaSanitationMap",
 
 	"other share text indicator1": "Which countries are on track with water? Check out the progress being made by Indian states and districts in their provision of sanitation.",
 

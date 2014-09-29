@@ -80,8 +80,8 @@ Your browser does not support the features needed to view this map properly - yo
 
 			</section>
 				<div id="select-source">
-					<a href="#" id="select-indicator2-source" class="button source current-source">Sanitation access</a>
-					<a href="#" id="select-indicator1-source" class="button source">Sanitation density</a>
+					<a href="#" id="select-indicator2-source" class="button source current-source">Open defecation %</a>
+					<a href="#" id="select-indicator1-source" class="button source">Open defecation density</a>
 					<!--<a href="#" id="select-indicator3-source" class="button source">Third Indicator</a>-->
 				</div>
 		<div id="map">
@@ -129,39 +129,46 @@ Your browser does not support the features needed to view this map properly - yo
 		<div>
 		<table id="table1" border = "1">
 		<tr>
-			<th>a</th>
-			<th>% without toilets</th>
+			<th></th>
+			<th>Percentage without toilets</th>
 			<th>SBA target</th>
-			<th>Cost in R</th>
 			<th>Cost in Lakh</th>
+
 		</tr>
 		<tr>
 			<td id="r1c1">IHHL</td>
-			<td id="r1c2"></td>
+			<td id="r1c2">-</td>
 			<td id="r1c3"></td>
 			<td id="r1c4"></td>
-			<td id="r1c5"></td>
+
 		</tr>
 		<tr>
 			<td id="r2c1">Schools</td>
 			<td id="r2c2"></td>
 			<td id="r2c3"></td>
 			<td id="r2c4"></td>
-			<td id="r2c5"></td>
+
 		</tr>
 		<tr>
 			<td id="r3c1">Anganwadi</td>
 			<td id="r3c2"></td>
 			<td id="r3c3"></td>
 			<td id="r3c4"></td>
-			<td id="r3c5"></td>
+
 		</tr>
 		<tr>
 			<td id="r4c1">CSC</td>
-			<td id="r4c2"></td>
+			<td id="r4c2">-</td>
 			<td id="r4c3"></td>
 			<td id="r4c4"></td>
-			<td id="r4c5"></td>
+
+		</tr>
+		<tr>
+			<td id="r5c1">Total</td>
+			<td id="r5c2">-</td>
+			<td id="r5c3">-</td>
+			<td id="r5c4"></td>
+
 		</tr>
 			
 		</table>
@@ -214,7 +221,7 @@ wwMap.init({
 	thisYear: 2015,
 	maxYear: 2019,
 	initialSource: 'indicator2',
-	initialCountry: 'IN.PB.HO',
+	initialCountry: 'IN.AVG',
 	yearsOnGraph: [2001, 2015, 2019],
 	mapurl_topojson_states: 'data/india_states_map_new.json',
 	dataurl_states: 'data/india_states_data.json',	
@@ -231,14 +238,12 @@ wwMap.init({
 		 
 	// Twice the amount of colours
 	indicator2ColorRange: [
-		"#800000","#951600","#AA2B00","#d45500","#D75E08",
-		"#da670f","#E37317","#eb7e1f","#EB891F","#eb941f",
-		"#EBA21F","#ebb01f","#EFBC2E","#f2c83d","#E3CA46",
-		"#d3cc4f","#ADC75F","#86c26f","#6ABA78","#4db181",
-		"#15b598",
-
+		"#15b598", "#4db181", "#6ABA78", "#86c26f", "#ADC75F", 
+		"#d3cc4f", "#E3CA46", "#f2c83d", "#EFBC2E", "#ebb01f", 
+		"#EBA21F", "#eb941f", "#EB891F", "#eb7e1f", "#E37317",
+		"#da670f", "#D75E08", "#d45500", "#AA2B00", "#951600",
+		"#800000",
 		 ],	
-	
 	indicator1ColorRange: [
 		"#15b598", "#4db181", "#6ABA78", "#86c26f", "#ADC75F", 
 		"#d3cc4f", "#E3CA46", "#f2c83d", "#EFBC2E", "#ebb01f", 
@@ -283,7 +288,7 @@ wwMap.init({
 	indicator2Domain:[5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 101],
 	indicator2ExtColorDomain:[5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 101],
 	indicator2Unit:" %",
-	indicator2OptimalValue: "high",
+	indicator2OptimalValue: "low",
 
 	indicator3Domain:[10, 20, 30, 40, 50, 60, 70, 80, 90, 101],
 	indicator3ExtColorDomain:[10, 20, 30, 40, 50, 60, 70, 80, 90, 101],
