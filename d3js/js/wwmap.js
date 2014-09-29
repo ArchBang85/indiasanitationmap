@@ -1254,6 +1254,22 @@ function updateTargetPanel() {
 
 }
 
+function indianNumbers(nStr){
+
+	if (nStr<1000){
+		return nStr;
+	}
+
+	var FullData = format( "#,##0.####", nStr);
+	var n = FullData.split(",");
+	var part1 = "";
+	for(i=0;i<n.length-1;i++)
+		part1 +=n[i];
+	var part2 = n[n.length-1];
+	return (format( "##,##.####", part1) + "," + part2);
+
+}
+
 function addCommas(nStr)
 {
 	nStr += '';
@@ -1280,27 +1296,27 @@ function updateDataTable() {
 		
 	// Second column
 	d3.selectAll("#r1c3")
-		.text(addCommas((allData[selectedCountry]["IHHL - latrines to be constructed under SBA (only those eligible) i.e SBA target"]).toFixed(decimals)));		
+		.text(indianNumbers(addCommas((allData[selectedCountry]["IHHL - latrines to be constructed under SBA (only those eligible) i.e SBA target"]).toFixed(decimals))));		
 	d3.selectAll("#r2c3")
-		.text(addCommas((allData[selectedCountry]["School - Without Toilet"]).toFixed(decimals)));			
+		.text(indianNumbers(addCommas((allData[selectedCountry]["School - Without Toilet"]).toFixed(decimals))));			
 	d3.selectAll("#r3c3")
-		.text(addCommas((allData[selectedCountry]["Anganwadi - Without Latrines"]).toFixed(decimals)));		
+		.text(indianNumbers(addCommas((allData[selectedCountry]["Anganwadi - Without Latrines"]).toFixed(decimals))));		
 	d3.selectAll("#r4c3")
-		.text(addCommas((allData[selectedCountry]["CSC - Required Complexes"]).toFixed(decimals)));
+		.text(indianNumbers(addCommas((allData[selectedCountry]["CSC - Required Complexes"]).toFixed(decimals))));
 				
 	// Third column
 	d3.selectAll("#r1c4")
-		.text(addCommas((allData[selectedCountry]["IHHL - Cost of meeting SBA target for IHHL -Lakh Rs"]).toFixed(decimals)));
+		.text(indianNumbers(addCommas((allData[selectedCountry]["IHHL - Cost of meeting SBA target for IHHL -Lakh Rs"]).toFixed(decimals))));
 	d3.selectAll("#r2c4")
-		.text(addCommas((allData[selectedCountry]["School - Subsidy for government schools@35000 per unit -Lakh Rs"]).toFixed(decimals)));
+		.text(indianNumbers(addCommas((allData[selectedCountry]["School - Subsidy for government schools@35000 per unit -Lakh Rs"]).toFixed(decimals))));
 	d3.selectAll("#r3c4")
-		.text(addCommas((allData[selectedCountry]["Anganwadi - Subsidy for Aaganwadi toilets@8000 per unit - Lakh Rs"]).toFixed(decimals)));
+		.text(indianNumbers(addCommas((allData[selectedCountry]["Anganwadi - Subsidy for Aaganwadi toilets@8000 per unit - Lakh Rs"]).toFixed(decimals))));
 	d3.selectAll("#r4c4")
-		.text(addCommas((allData[selectedCountry]["CSC - Subsidy for Sanitary Complex@200000 per unit - Lakh  Rs"]).toFixed(decimals)));
+		.text(indianNumbers(addCommas((allData[selectedCountry]["CSC - Subsidy for Sanitary Complex@200000 per unit - Lakh  Rs"]).toFixed(decimals))));
 		
 		
 	d3.selectAll("#r5c4")
-		.text(addCommas((allData[selectedCountry]["Total cost of SBA of SBA targets (IHHL,school, Anganwadi and CSC) - Lakh Rs"]).toFixed(decimals)));
+		.text(indianNumbers(addCommas((allData[selectedCountry]["Total cost of SBA of SBA targets (IHHL,school, Anganwadi and CSC) - Lakh Rs"]).toFixed(decimals))));
 	return 0
 			
 }
@@ -1522,8 +1538,10 @@ function switchLevel() {
 }
 
 function reset() {
+	// Currently resetting by refreshing the whole page
+	location.reload();
 	
-	selectedYear = config.minYear;
+	/*selectedYear = config.minYear;
 	selectedCountry = config.initialCountry;
 	setDefaultSelections();	// update everything that varies by source, year and country
 	createSlider();
@@ -1532,7 +1550,7 @@ function reset() {
 	updateLegend();
 	updateMapColors();
 	updateSideBar();
-	removeSelectedBorder();
+	removeSelectedBorder();*/
 }
 return {init: init};
 })();
