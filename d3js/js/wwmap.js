@@ -958,8 +958,20 @@ function plotAllYearData() {
 	var optimalValue = config[selectedSource + "OptimalValue"];
 
 	// add the graph div
+	//var visDivInstruction = countryInfo.append("div")
+	//	.attr("id", "country-info-advice")
+	//	.text("Please click on a state to display data");
+	
 	var visDiv = countryInfo.append("div")
 		.attr("id", "country-info-graph");
+		
+	var visDivSource = countryInfo.append("div")
+		.attr("id", "country-info-source")
+		.text("Source: ")
+		.append("a")
+		.attr("href", "http://censusindia.gov.in")
+		.html("2001 census and 2011 census");
+		
 	var visDivLegend = visDiv.append("div")
 	//	.attr("class", "graphLegend");
 		.attr("id", "graphL");
@@ -981,7 +993,7 @@ function plotAllYearData() {
 		var height = maxY * config.lineGraphAspectRatio;
 	}
 	
-	var margin = {left: 30, right: 15, top: 6, bottom: 20};
+	var margin = {left: 40, right: 15, top: 6, bottom: 20};
 	lgY = d3.scale.linear()
 		.domain([0, maxY])
 		.range([0 + margin.bottom, height - margin.top]);
@@ -1249,9 +1261,6 @@ function updateTargetPanel() {
 	}
 	
 */
-
-
-
 }
 
 function indianNumbers(nStr){
@@ -1293,6 +1302,8 @@ function updateDataTable() {
 		.text(addCommas((allData[selectedCountry]["% of schools without toilet facilities"]).toFixed(decimals))+ "%");
 	d3.selectAll("#r3c2")
 		.text(addCommas((allData[selectedCountry]["Anganwadi - % of (No Suggestions) without toilet facilities"]).toFixed(decimals)) + "%");
+	d3.selectAll("#r1c2")
+		.text(addCommas(100-(allData[selectedCountry]["IHHL - Access to a IHHL latrine (rural only as per the baseline, APL&BPL)"]).toFixed(decimals)) + "%");
 		
 	// Second column
 	d3.selectAll("#r1c3")

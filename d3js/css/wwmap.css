@@ -283,6 +283,7 @@ h2 > a {
     float: left;
 	left: 300px;
 	top: 500px;
+	width: 200px;
     font-weight: bold;
     margin-right: 0em;
 	margin-left: 1em;
@@ -295,6 +296,9 @@ h2 > a {
 #level-button:hover {
 	cursor:pointer;
 	color:#333333;
+	border-style: solid;
+	border-width: 3px;
+	border-color: #333;
 }
 
 
@@ -615,6 +619,7 @@ aside.info {
 
 #country-info-advice {
 	text-align: center;
+	padding-top: 0.5em;
 }
 
 .country-info-year {
@@ -669,10 +674,10 @@ aside.info {
 .indicator3 #country-info-access-text > .target-percentage {color: #43C4AD;}
 
 .percent-sign {
-    font-size: 0.7em;
+    font-size: 0.75em;
     left: 0.1em;
     position: relative;
-    top: -0.3em;
+    top: -0.2em;
 }
 
 #country-info-graph {
@@ -681,7 +686,7 @@ aside.info {
 	margin-top:3em;
 }
 #country-info-graph > .inner { margin: 5px; }
-#country-info-graph > .inner > svg { margin-top: 5px; margin-bottom: 5px; }
+#country-info-graph > .inner > svg { margin-top: 3px; margin-bottom: 5px; }
 
 #country-info line {
 	stroke-width: 3;
@@ -725,6 +730,8 @@ aside.info {
 	font-family: sans-serif;
 	font-size: 0.8em;
 }
+
+#country-info-source {text-align:center;}
 
 /*--Targets--*/
 
@@ -836,13 +843,49 @@ aside.info {
 
 /*--- Data table under graph ---*/
 
-#table1 {
-	border-collapse: collapse;
-	border-spacing: 0;
+#table1-container { margin-top: 3em; border-top: 7px solid #65CDF3; }
+#table1-info-year {
+    background-color: #FFA500;
+    color: #FFFFFF;
+    display: block;
+    float: right;
+    font-size: 1.5em;
+    font-weight: bold;
+    padding: 0.25em 1em;
+    position: relative;
+    top: -20px;
+    right: 0;
+}
+#table1-info-year:before {
+    border-right: 15px solid #D48702;
+    border-top: 15px solid rgba(0, 0, 0, 0);
+    content: "";
+    display: block;
+    left: -15px;
+    position: absolute;
+    top: 0;
+    z-index: 1;
 }
 
-#table1 td, th {
+
+#table1-header {
+	text-align: center;
+	margin-top: 0.5em;
 	
+}
+
+#table1 {
+	border-collapse: collapse;
+	border-spacing: 1;
+	margin-top: 0.5em;
+	margin-left:1em;
+	margin-right:1em;
+}
+
+#table1-unwanted-cell{
+	border-right: 2px;
+	border-bottom: 2px;
+	visibility:hidden;
 }
 
 #table1 td {
@@ -851,25 +894,36 @@ aside.info {
 	font-size: 1em;
 	font-weight: bold;
 	padding: 5px;
-	background: #FAFAFA;
+	
 	}
 	
 #table1 th {
-	background: #DFDFDF;
+	background: #3FC0F0;
 	height: 30px;
+	padding:4px;
+	color: black;
 }
 
 /* Cells in even rows (2,4,6...) are one color */ 
-#table1 tr:nth-child(even) td { background: #F1F1F1; }  
+/*#table1 tr:nth-child(even) td { background: #F1F1F1; }  */
 
 /* Cells in odd rows (1,3,5...) are another (excludes header cells)  */ 
-tr:nth-child(odd) td { background: #FEFEFE;}  
+/*tr:nth-child(odd) td { background: #FEFEFE;}  */
 
-tr td:hover { background: #666; color: #3FC0F0;}
+tr td:hover { background: #666; color: #FFF;}
+
+#table1-header1 {border-left-width:2px; border-left-color:black;}
 
 /* Bottom row of table */
-#table1 tr:last-child {font-size: 1.1em;}
+#table1 tr:last-child {font-size: 1.0em; background: #D3D3D3}
 
+#table1-bottom-row { border-top-width:5px; border-top-color:black;}
+
+#table1-source {text-align:center; padding-top:0.3em;}
+
+#r1c1, #r2c1, #r3c1, #r4c1, #r5c1 {background:#3FC0F0; color: black;}
+
+#r1c1 {border-top-style: solid black; border-top-width:2px;}
 /*------Footer----------------
  ===============================*/
 
@@ -1030,6 +1084,7 @@ tr td:hover { background: #666; color: #3FC0F0;}
 		display:block;
 		}
 	#country-targets {
+	 
 		padding-top:1em;
 	}
 	.targets-title {

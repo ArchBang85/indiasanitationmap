@@ -68,7 +68,7 @@ Your browser does not support the features needed to view this map properly - yo
 	<section class="mainmap">
 		<section class="map-info">
 				<h1 id="map-info-title"> 
-					<span class="big indicator1"> Sanitation<strong> 2001-2030</strong><br />&nbsp;</span>
+					<span class="big indicator1"> Sanitation<strong> 2001-2019</strong><br />&nbsp;</span>
 				</h1>	
 		
 				<p class="instructions"><br>Drag the slider to change the year and click on a state to see more information.</p>
@@ -96,9 +96,10 @@ Your browser does not support the features needed to view this map properly - yo
 		
 	</section>
 	<aside class="info">
-		<div id="country-info"></div>
-		<div id="country-info-advice">Please click on a state to display data</div>
-		<div id="country-targets">
+		<div id="country-info-advice"></div>
+		<div id="country-info"><div id="country-info-source">Source </div></div>
+
+	<!--	<div id="country-targets">
 			<!--<h2 class="targets-title">Sanitation progress to 2019</h2>
 			<p class="targets-subtitle"></p>
 			<div class="targets-section currently">
@@ -127,17 +128,19 @@ Your browser does not support the features needed to view this map properly - yo
 		</div>-->
 				
 		<!--Data table for further indicators -->
-		<div>
+		<div id = "table1-container"> 
+			<div id = "table1-info-year">2015</div>
+		<div id="table1-header"><h2>Rural baseline data</h2></div>
 		<table id="table1" border = "1">
 		<tr>
-			<th></th>
-			<th>Percentage without toilets</th>
+			<th id="table1-unwanted-cell"></th>
+			<th id="table1-header1">% without toilets</th>
 			<th>SBA target</th>
-			<th>Cost in Lakh</th>
+			<th>Cost<br/>(Lakh Rs)</th>
 
 		</tr>
 		<tr>
-			<td id="r1c1">IHHL</td>
+			<td id="r1c1">Households</td>
 			<td id="r1c2">-</td>
 			<td id="r1c3"></td>
 			<td id="r1c4"></td>
@@ -158,13 +161,13 @@ Your browser does not support the features needed to view this map properly - yo
 
 		</tr>
 		<tr>
-			<td id="r4c1">CSC</td>
+			<td id="r4c1">Community toilets</td>
 			<td id="r4c2">-</td>
 			<td id="r4c3"></td>
 			<td id="r4c4"></td>
 
 		</tr>
-		<tr>
+		<tr id="table1-bottom-row">
 			<td id="r5c1">Total</td>
 			<td id="r5c2">-</td>
 			<td id="r5c3">-</td>
@@ -173,6 +176,8 @@ Your browser does not support the features needed to view this map properly - yo
 		</tr>
 			
 		</table>
+		
+		<div id = "table1-source">Source: <a href="http://tsc.nic.in/BLS2012/Home.aspx" target="_top">MDWS Baseline 2012-13</a></div>
 		
 		
 		</div>
