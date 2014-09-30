@@ -1408,6 +1408,7 @@ function setDefaultSelections() {
 	optimalValue = config[selectedSource + "OptimalValue"];
 }
 
+
 function init(mapconfig) {
 
 	config = mapconfig;
@@ -1454,7 +1455,7 @@ function init(mapconfig) {
 
 	var width = parseInt(d3.select('#map').style('width'));
 	// Ratio looks to adjust where footer falls too
-	var mapRatio = 0.4;
+	var mapRatio = 1;
 	var height = width * mapRatio;
 
 	// Default language
@@ -1468,8 +1469,8 @@ function init(mapconfig) {
 
 	// Adjust the translation of the projection to ensure that the clicking and hovering functionality remains
 	var projection = d3.geo.mercator()
-		.scale(width/1.25)
-		.translate([-width + 80, height/2+585]);
+		.scale(width*1.75)
+		.translate([-width - 780, height/2+540]);
 	path = d3.geo.path().projection(projection);
 
 	d3.select("#select-indicator1-source")
