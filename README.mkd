@@ -38,3 +38,7 @@ The topojson command can be installed by running
 
 npm is part of node - on Ubuntu 14.04 you just install the nodejs package,
 or [see this guide for older versions of Ubuntu](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager#ubuntu-mint-elementary-os)
+
+Data flow diagram:
+
+<img width="100%" src="https://raw.githubusercontent.com/ArchBang85/indiasanitationmap/master/IndiaSanitationMapFlow%20-%20New%20Page.png" />
