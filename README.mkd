@@ -1,9 +1,8 @@
-###Africa Watermap
+###India Sanitation Map
 
-This interactive map commissioned by Wateraid for Africa Water week has been released for use by other organisations or individuals who may use it as a starting point for their own maps. 
-The map itself is fully responsive and uses d3js for svg image generation in javascript. We would appreciate if you could remove all branding from your project before publishing it. 
+The map itself is fully responsive and uses d3js for svg image generation in javascript.
 
-<img width="100%" src="https://raw.githubusercontent.com/aptivate/africawatermap/master/d3js/images/africa-water-map-screenshot.png" />
+<img width="100%" src="https://raw.githubusercontent.com/ArchBang85/indiasanitationmap/master/d3js/images/fallback.png" />
 
 ## Local Development Server
 
