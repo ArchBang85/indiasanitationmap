@@ -1,10 +1,13 @@
-Steps used to create a chloropleth map for India
+﻿Steps used to create a chloropleth map for India
 
 1) Ogr2ogr –f GeoJSON [outputfile.json] [shapefile.shp]
 example:
 
 2) topojson --id-property=[shapefile ID attribute] -p name=[name] -o [outputfile.json] [inputfile.json]
 example: topojson --id-property=HASC_2 -p name=NAME_2 -o india.json subunits.json
+
+Used example with the newest shapefiles (6/11/2014) topojson --id-property=NAME_1+NAME_2 -p state=NAME_1 -p district=NAME_2 -o district_map.json district_subunits.json
+Used example with the newest shapefiles (6/11/2014) topojson --id-property=NAME_1 -p state=NAME_1 -p hasc_1=HASC_1 -o state_map.json state_subunits.json
 
 
 ------------------------------------------------------------------------------------------- 
